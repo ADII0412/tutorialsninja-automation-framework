@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="TutorialsNinja Automation Suite" parallel="tests" thread-count="2">
+
+    <!-- ================= REGISTRATION ================= -->
+    <test name="Registration Tests">
+        <packages>
+            <package name="tests.registration"/>
+        </packages>
+    </test>
+
+    <!-- ================= LOGIN ================= -->
+    <test name="Login Tests">
+        <packages>
+            <package name="tests.login"/>
+        </packages>
+    </test>
+
+    <!-- ================= SEARCH ================= -->
+    <test name="Search Tests">
+        <packages>
+            <package name="tests.search"/>
+        </packages>
+    </test>
+
+    <!-- ================= PRODUCT ================= -->
+    <test name="Product Tests">
+        <packages>
+            <package name="tests.product"/>
+        </packages>
+    </test>
+
+    <!-- ================= WISHLIST ================= -->
+    <test name="Wishlist Tests">
+        <packages>
+            <package name="tests.wishlist"/>
+        </packages>
+    </test>
+
+    <!-- ================= CART ================= -->
+    <test name="Cart Tests">
+        <packages>
+            <package name="tests.cart"/>
+        </packages>
+    </test>
+
+    <!-- ================= CHECKOUT ================= -->
+    <test name="Checkout Tests">
+        <packages>
+            <package name="tests.checkout"/>
+        </packages>
+    </test>
+
+    <!-- ================= COMPARE ================= -->
+    <test name="Compare Tests">
+        <packages>
+            <package name="tests.compare"/>
+        </packages>
+    </test>
+
+</suite>
