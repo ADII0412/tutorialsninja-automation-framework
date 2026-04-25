@@ -1,9 +1,11 @@
 package pages;
 
 import base.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -13,7 +15,7 @@ public class ProductPage extends BasePage {
         super(driver);
     }
 
-    //LOCATORS
+    // LOCATORS
     @FindBy(css = "#content h1")
     private WebElement productTitle;
 
@@ -38,6 +40,9 @@ public class ProductPage extends BasePage {
     @FindBy(css = ".alert-success")
     private WebElement successMessage;
 
+    @FindBy(css = "#form-review .alert-success")
+    private WebElement reviewSuccessMessage;
+
     @FindBy(css = "a[href='#tab-review']")
     private WebElement reviewButton;
 
@@ -53,19 +58,13 @@ public class ProductPage extends BasePage {
     @FindBy(id = "button-review")
     private WebElement submitReviewButton;
 
-    @FindBy(css = ".alert-success")
-    private WebElement reviewSuccessMessage;
+    private By relatedProductsLocator = By.cssSelector(".col-xs-6");
 
-    // Related Products
-    @FindBy(css = ".col-xs-6")
-    private List<WebElement> relatedProducts;
-
-    // Enlarged Image (popup)
     @FindBy(css = ".mfp-img")
     private WebElement enlargedImage;
 
 
-    //VALIDATIONS
+    // VALIDATIONS
     public String getProductTitle() {
         return getText(productTitle);
     }
@@ -79,11 +78,21 @@ public class ProductPage extends BasePage {
     }
 
     public boolean areProductImagesDisplayed() {
-        return !productImages.isEmpty();
+        try {
+            wait.until(d -> !productImages.isEmpty());
+            return !productImages.isEmpty();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean areRelatedProductsDisplayed() {
-        return !relatedProducts.isEmpty();
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(relatedProductsLocator));
+            return !driver.findElements(relatedProductsLocator).isEmpty();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean isEnlargedImageDisplayed() {
@@ -108,11 +117,12 @@ public class ProductPage extends BasePage {
     public CartPage clickCartButton() {
         waitForVisibility(cartButton);
         click(cartButton);
+        waitForVisibility(viewCartButton); // Added safety wait
         click(viewCartButton);
         return new CartPage(driver);
     }
 
-    //REVIEW
+    // REVIEW
     public void submitReview(String name, String review) {
         waitForVisibility(reviewButton);
         click(reviewButton);
@@ -124,11 +134,13 @@ public class ProductPage extends BasePage {
     }
 
     public String getReviewSuccessMessage() {
+        waitForVisibility(reviewSuccessMessage);
         return getText(reviewSuccessMessage);
     }
 
-    //COMMON
+    // COMMON
     public String getSuccessMessage() {
+        waitForVisibility(successMessage);
         return getText(successMessage);
     }
 }
