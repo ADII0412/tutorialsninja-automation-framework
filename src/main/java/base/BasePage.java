@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.HeaderComponent;
 
 import java.time.Duration;
 
@@ -14,6 +15,7 @@ public class BasePage {
 
     protected WebDriver driver;
     protected WebDriverWait wait;
+    public HeaderComponent header;
 
     private static final int DEFAULT_TIMEOUT = 10;
 
