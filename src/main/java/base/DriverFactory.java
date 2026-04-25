@@ -23,7 +23,7 @@ public class DriverFactory {
 
         String browser = prop.getProperty("browser", "chrome").toLowerCase();
 
-        logger.info("Launching browser: {} | Thread ID: {}", browser, Thread.currentThread().getId());
+        logger.info("Launching browser: {} | Thread ID: {}", browser, Thread.currentThread().threadId());
 
         switch (browser) {
 
