@@ -1,51 +1,94 @@
 package base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.time.Duration;
 import java.util.Properties;
 
 public class DriverFactory {
 
-    // ThreadLocal for parallel execution
     private static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
+    private static final Logger logger = LogManager.getLogger(DriverFactory.class);
 
-    // Initialize Driver
     public static WebDriver initDriver(Properties prop) {
 
         String browser = prop.getProperty("browser", "chrome").toLowerCase();
+
+        logger.info("Launching browser: {} | Thread ID: {}", browser, Thread.currentThread().getId());
 
         switch (browser) {
 
             case "chrome":
                 WebDriverManager.chromedriver().setup();
-                tlDriver.set(new ChromeDriver());
+
+                ChromeOptions chromeOptions = new ChromeOptions();
+
+                if (Boolean.parseBoolean(prop.getProperty("headless", "false"))) {
+                    chromeOptions.addArguments("--headless=new");
+                }
+
+                chromeOptions.addArguments("--start-maximized");
+                chromeOptions.addArguments("--disable-notifications");
+                chromeOptions.addArguments("--remote-allow-origins=*");
+                chromeOptions.addArguments("--disable-gpu");
+                chromeOptions.addArguments("--no-sandbox");
+                chromeOptions.addArguments("--disable-dev-shm-usage");
+
+                tlDriver.set(new ChromeDriver(chromeOptions));
                 break;
+
 
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
-                tlDriver.set(new FirefoxDriver());
+
+                FirefoxOptions firefoxOptions = new FirefoxOptions();
+
+                if (Boolean.parseBoolean(prop.getProperty("headless", "false"))) {
+                    firefoxOptions.addArguments("--headless");
+                }
+
+                firefoxOptions.addArguments("--width=1920");
+                firefoxOptions.addArguments("--height=1080");
+
+                tlDriver.set(new FirefoxDriver(firefoxOptions));
                 break;
+
 
             case "edge":
                 WebDriverManager.edgedriver().setup();
-                tlDriver.set(new EdgeDriver());
+
+                EdgeOptions edgeOptions = new EdgeOptions();
+
+                if (Boolean.parseBoolean(prop.getProperty("headless", "false"))) {
+                    edgeOptions.addArguments("--headless=new");
+                }
+
+                edgeOptions.addArguments("--start-maximized");
+                edgeOptions.addArguments("--disable-notifications");
+
+                tlDriver.set(new EdgeDriver(edgeOptions));
                 break;
+
 
             default:
                 throw new IllegalArgumentException("Invalid browser: " + browser);
         }
 
-        getDriver().manage().window().maximize();
+        //Common settings
         getDriver().manage().deleteAllCookies();
 
         int pageLoadTime = Integer.parseInt(prop.getProperty("pageLoadTimeout", "20"));
         getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(pageLoadTime));
-        getDriver().get(prop.getProperty("baseUrl"));
+
         return getDriver();
     }
 
@@ -54,8 +97,9 @@ public class DriverFactory {
     }
 
     public static void quitDriver() {
-        if (tlDriver.get() != null) {
-            tlDriver.get().quit();
+        WebDriver driver = tlDriver.get();
+        if (driver != null) {
+            driver.quit();
             tlDriver.remove();
         }
     }
