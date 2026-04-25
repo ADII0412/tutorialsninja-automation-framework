@@ -28,24 +28,52 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        String testName = result.getName();
+        String testName = result.getName() + "_" + System.currentTimeMillis();
         BaseTest baseTest = (BaseTest) result.getInstance();
         WebDriver driver = baseTest.getDriver();
-        String screenshotPath = ScreenshotUtil.captureScreenshot(driver, testName);
-        logger.error("Test FAILED: " + testName);
-        test.get().fail(result.getThrowable());
-        test.get().addScreenCaptureFromPath(screenshotPath);
+
+        String screenshotPath = null;
+        try {
+            screenshotPath = ScreenshotUtil.captureScreenshot(driver, testName);
+        } catch (Exception e) {
+            logger.error("Screenshot capture failed: " + e.getMessage());
+        }
+
+        logger.error("Test FAILED: " + testName, result.getThrowable());
+
+        if (test.get() != null) {
+            test.get().fail(result.getThrowable());
+            if (screenshotPath != null) {
+                test.get().addScreenCaptureFromPath(screenshotPath);
+            }
+        }
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
         String testName = result.getName();
-        BaseTest baseTest = (BaseTest) result.getInstance();
-        WebDriver driver = baseTest.getDriver();
-        String screenshotPath = ScreenshotUtil.captureScreenshot(driver, testName);
         logger.warn("Test SKIPPED: " + testName);
-        test.get().skip(result.getThrowable());
-        test.get().addScreenCaptureFromPath(screenshotPath);
+
+        String screenshotPath = null;
+
+        if (result.getInstance() instanceof BaseTest) {
+            BaseTest baseTest = (BaseTest) result.getInstance();
+            WebDriver driver = baseTest.getDriver();
+            if (driver != null) {
+                try {
+                    screenshotPath = ScreenshotUtil.captureScreenshot(driver, testName);
+                } catch (Exception e) {
+                    logger.error("Screenshot capture failed: " + e.getMessage());
+                }
+            }
+        }
+
+        if (test.get() != null) {
+            test.get().skip(result.getThrowable());
+            if (screenshotPath != null) {
+                test.get().addScreenCaptureFromPath(screenshotPath);
+            }
+        }
     }
 
     @Override
