@@ -1,6 +1,7 @@
 package pages;
 
 import base.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,8 +25,7 @@ public class SearchPage extends BasePage {
     @FindBy(name = "description")
     private WebElement descriptionCheckbox;
 
-    @FindBy(css = ".product-thumb")
-    private List<WebElement> productResults;
+    private By productResultsLocator = By.cssSelector(".product-thumb");
 
     @FindBy(xpath = "//p[contains(text(),'There is no product')]")
     private WebElement noProductMessage;
@@ -48,26 +48,35 @@ public class SearchPage extends BasePage {
     @FindBy(xpath = "//a[contains(text(),'product comparison')]")
     private WebElement compareLink;
 
-    // Actions
+    // ACTIONS
     public void selectCategory(String category) {
         waitForVisibility(categoryDropdown);
         new Select(categoryDropdown).selectByVisibleText(category);
     }
 
     public void enableSearchInDescription() {
-        click(descriptionCheckbox);
+        if (!descriptionCheckbox.isSelected()) {
+            click(descriptionCheckbox);
+        }
     }
 
     public void enableSubCategory() {
-        click(subCategoryCheckbox);
+        if (!subCategoryCheckbox.isSelected()) {
+            click(subCategoryCheckbox);
+        }
     }
 
     public void clickSearch() {
         click(searchButton);
-        wait.until(driver -> !productResults.isEmpty() || isDisplayed(noProductMessage));
+        wait.until(d -> {
+            boolean resultsFound = !d.findElements(productResultsLocator).isEmpty();
+            boolean noResultsMsgFound = d.findElements(By.xpath("//p[contains(text(),'There is no product')]")).size() > 0;
+            return resultsFound || noResultsMsgFound;
+        });
     }
 
     public ProductPage openProduct() {
+        waitForVisibility(productLink);
         click(productLink);
         return new ProductPage(driver);
     }
@@ -77,23 +86,24 @@ public class SearchPage extends BasePage {
     }
 
     public String getFirstProductName() {
+        waitForVisibility(productLink);
         return productLink.getText();
     }
 
     public void addProductToCompare() {
         waitForClickable(compareButton);
-        compareButton.click();
+        click(compareButton);
     }
 
     public ComparePage navigateToComparePage() {
         waitForClickable(compareLink);
-        compareLink.click();
+        click(compareLink);
         return new ComparePage(driver);
     }
 
-    // Validations
+    // VALIDATIONS
     public boolean isProductDisplayed() {
-        return !productResults.isEmpty();
+        return !driver.findElements(productResultsLocator).isEmpty();
     }
 
     public String getNoProductMessage() {
