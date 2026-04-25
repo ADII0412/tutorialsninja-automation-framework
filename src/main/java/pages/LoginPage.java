@@ -20,7 +20,7 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//input[@value='Login']")
     private WebElement loginButton;
 
-    @FindBy(xpath = "//div[contains(text(),'Warning')]")
+    @FindBy(xpath = "//div[contains(@class,'alert-danger')]")
     private WebElement warningMessage;
 
     @FindBy(linkText = "Forgotten Password")
@@ -29,18 +29,22 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//div[@class='list-group']//a[contains(text(),'Wish List')]")
     private WebElement wishListLink;
 
-    // Actions
+    // ACTIONS
     public AccountPage login(String email, String password) {
-        type(emailField, email);
-        type(passwordField, password);
+        enterCredentials(email, password);
         click(loginButton);
         return new AccountPage(driver);
     }
 
-    public void loginWithInvalidCredentials(String email, String password) {
+    public LoginPage loginWithInvalidCredentials(String email, String password) {
+        enterCredentials(email, password);
+        click(loginButton);
+        return this;
+    }
+
+    private void enterCredentials(String email, String password) {
         type(emailField, email);
         type(passwordField, password);
-        click(loginButton);
     }
 
     public ForgotPasswordPage navigateToForgotPassword() {
@@ -53,8 +57,9 @@ public class LoginPage extends BasePage {
         return new WishlistPage(driver);
     }
 
-    // Validation
+    // VALIDATION
     public String getWarningMessage() {
+        waitForVisibility(warningMessage);
         return getText(warningMessage);
     }
 }
