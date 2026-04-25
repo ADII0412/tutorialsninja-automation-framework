@@ -14,49 +14,63 @@ public class ComparePage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//table[contains(@class,'table-bordered')]//td/a/strong")
-    private List<WebElement> comparedProductNames;
-
-    @FindBy(xpath = "//a[text()='Remove']")
-    private List<WebElement> removeButtons;
-
+    // Locators
     @FindBy(xpath = "//p[contains(text(),'You have not chosen any products')]")
     private WebElement emptyCompareMessage;
 
-    //VALIDATIONS
+    private By productNamesLocator = By.xpath("//table[contains(@class,'table-bordered')]//td/a/strong");
+    private By removeButtonsLocator = By.xpath("//a[text()='Remove']");
+
+    // COMMON UTILS
+    private List<WebElement> getProductNames() {
+        return driver.findElements(productNamesLocator);
+    }
+
+    private List<WebElement> getRemoveButtons() {
+        return driver.findElements(removeButtonsLocator);
+    }
+
+    // VALIDATIONS
     public int getComparedProductsCount() {
-        return comparedProductNames.size();
+        return getProductNames().size();
     }
 
     public boolean isProductPresent(String productName) {
-        return comparedProductNames.stream()
-                .anyMatch(p -> p.getText().equals(productName));
+        return getProductNames().stream()
+                .anyMatch(p -> p.getText().trim().equalsIgnoreCase(productName));
     }
 
     public boolean isCompareListEmpty() {
-        return isDisplayed(emptyCompareMessage) || comparedProductNames.isEmpty();
+        return isDisplayed(emptyCompareMessage) || getProductNames().isEmpty();
     }
 
-    //ACTIONS
+    // ACTIONS
     public void removeProductByName(String productName) {
-        for (int i = 0; i < comparedProductNames.size(); i++) {
-            if (comparedProductNames.get(i).getText().equals(productName)) {
-                click(removeButtons.get(i));
+        List<WebElement> names = getProductNames();
+        for (int i = 0; i < names.size(); i++) {
+            if (names.get(i).getText().trim().equalsIgnoreCase(productName)) {
+                int initialSize = names.size();
+                click(getRemoveButtons().get(i));
+                wait.until(d -> getProductNames().size() < initialSize);
                 break;
             }
         }
     }
 
     public void clearAllProducts() {
-        while (!comparedProductNames.isEmpty()) {
-            click(removeButtons.get(0));
-            wait.until(d -> comparedProductNames.size() >= 0);
+        int maxAttempts = 10; // Safety guard
+        while (!getProductNames().isEmpty() && maxAttempts > 0) {
+            int initialSize = getProductNames().size();
+            click(getRemoveButtons().get(0));
+            wait.until(d -> getProductNames().size() < initialSize || getProductNames().isEmpty());
+            maxAttempts--;
         }
     }
 
     public List<String> getAllComparedProductNames() {
-        return comparedProductNames.stream()
+        return getProductNames().stream()
                 .map(WebElement::getText)
+                .map(String::trim)
                 .toList();
     }
 }
