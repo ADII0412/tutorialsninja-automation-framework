@@ -12,8 +12,6 @@ public class TC015_ProductReviewSubmissionTest extends BaseTest {
 
     @Test(description = "Verify user can submit a product review successfully")
     public void verifyProductReviewSubmission() {
-        // Redundant start/end logs removed (handled by Listener)
-
         HomePage homePage = new HomePage(getDriver());
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);
         ProductPage productPage = searchPage.openProduct();
