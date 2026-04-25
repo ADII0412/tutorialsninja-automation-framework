@@ -1,5 +1,7 @@
 package base;
 
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -59,7 +61,7 @@ public class BasePage {
         try {
             waitForVisibility(element);
             return element.isDisplayed();
-        } catch (Exception e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             return false;
         }
     }
