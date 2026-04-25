@@ -19,23 +19,23 @@ public class WishlistPage extends BasePage {
     private By productName = By.xpath(".//td[2]");
     private By removeBtn = By.xpath(".//a[@class='btn btn-danger']");
     private By addToCartBtn = By.xpath(".//button[@data-original-title='Add to Cart']");
-    @FindBy (xpath = "//div[@class='list-group']//a[contains(text(), 'Logout')]")
-    private WebElement logoutLink;
 
-    // ================= COMMON UTIL =================
-
+    //COMMON UTIL
     private List<WebElement> getRows() {
         return driver.findElements(wishlistRows);
     }
 
     private WebElement getRowByProductName(String name) {
         return getRows().stream()
-                .filter(row -> row.findElement(productName).getText().equals(name))
+                .filter(row -> row.findElement(productName)
+                        .getText()
+                        .trim()
+                        .equalsIgnoreCase(name))
                 .findFirst()
                 .orElse(null);
     }
 
-    // ================= VALIDATIONS =================
+    //VALIDATIONS
 
     public int getWishlistItemCount() {
         return getRows().size();
@@ -49,11 +49,12 @@ public class WishlistPage extends BasePage {
         return getRowByProductName(name) != null;
     }
 
-    // ================= ACTIONS =================
+    //ACTIONS
 
     public void removeFirstProduct() {
         List<WebElement> rows = getRows();
         if (rows.isEmpty()) return;
+
         int initialSize = rows.size();
         click(rows.get(0).findElement(removeBtn));
         wait.until(d -> getRows().size() < initialSize);
@@ -62,6 +63,7 @@ public class WishlistPage extends BasePage {
     public void removeProductByName(String name) {
         WebElement row = getRowByProductName(name);
         if (row == null) return;
+
         int initialSize = getRows().size();
         click(row.findElement(removeBtn));
         wait.until(d -> getRows().size() < initialSize);
@@ -79,21 +81,15 @@ public class WishlistPage extends BasePage {
         click(row.findElement(addToCartBtn));
     }
 
-    public LogoutPage logout() {
-        waitForVisibility(logoutLink);
-        click(logoutLink);
-        return new LogoutPage(driver);
-    }
-
     public void clearWishlist() {
-        while (true) {
+        int maxAttempts = 10;
+        while (maxAttempts > 0) {
             List<WebElement> rows = getRows();
             if (rows.isEmpty()) break;
             int initialSize = rows.size();
             click(rows.get(0).findElement(removeBtn));
-            wait.until(d ->
-                    getRows().size() < initialSize || getRows().isEmpty()
-            );
+            wait.until(d -> getRows().size() < initialSize || getRows().isEmpty());
+            maxAttempts--;
         }
     }
 }
