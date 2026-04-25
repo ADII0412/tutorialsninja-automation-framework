@@ -12,7 +12,7 @@ import utils.TestData;
 public class TC025_AddSameItemMultipleTimesTest extends BaseTest {
 
     @Test(description = "Verify quantity increases when same product is added multiple times")
-    public void TC025_verifyAddSameItemMultipleTimes() {
+    public void verifyAddSameItemMultipleTimes() {
 
         logger.info("===== Starting TC025_AddSameItemMultipleTimesTest =====");
 

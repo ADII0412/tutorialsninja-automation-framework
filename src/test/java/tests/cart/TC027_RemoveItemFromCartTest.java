@@ -12,7 +12,7 @@ import utils.TestData;
 public class TC027_RemoveItemFromCartTest extends BaseTest {
 
     @Test(description = "Verify user can remove item from cart successfully")
-    public void TC027_verifyRemoveItemFromCart() {
+    public void verifyRemoveItemFromCart() {
 
         logger.info("===== Starting TC027_RemoveItemFromCartTest =====");
 

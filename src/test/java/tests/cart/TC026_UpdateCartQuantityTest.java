@@ -12,7 +12,7 @@ import utils.TestData;
 public class TC026_UpdateCartQuantityTest extends BaseTest {
 
     @Test(description = "Verify user can update product quantity in cart")
-    public void TC026_verifyUpdateCartQuantity() {
+    public void verifyUpdateCartQuantity() {
 
         logger.info("===== Starting TC026_UpdateCartQuantityTest =====");
 

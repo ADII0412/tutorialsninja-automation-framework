@@ -12,7 +12,7 @@ import utils.TestData;
 public class TC028_EmptyCartValidationTest extends BaseTest {
 
     @Test(description = "Verify cart is empty after removing all items")
-    public void TC028_verifyEmptyCartValidation() {
+    public void verifyEmptyCartValidation() {
 
         logger.info("===== Starting TC028_EmptyCartValidationTest =====");
 
