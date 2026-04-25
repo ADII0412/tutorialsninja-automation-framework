@@ -41,7 +41,8 @@ public class RegisterPage extends BasePage {
     @FindBy(xpath = "//input[@value='Continue']")
     private WebElement continueButton;
 
-    private void fillRegistrationForm(String firstName, String lastName, String email, String telephone, String password) {
+    public void fillRegistrationForm(String firstName, String lastName, String email, String telephone, String password) {
+        waitForVisibility(firstNameField);
         type(firstNameField, firstName);
         type(lastNameField, lastName);
         type(emailField, email);
@@ -52,8 +53,8 @@ public class RegisterPage extends BasePage {
 
     public AccountSuccessPage registerAccount(String firstName, String lastName, String email, String telephone, String password) {
         fillRegistrationForm(firstName, lastName, email, telephone, password);
-        click(privacyPolicyCheckbox);
-        click(continueButton);
+        checkPrivacyPolicy();
+        clickContinueButton();
         return new AccountSuccessPage(driver);
     }
 
@@ -68,5 +69,15 @@ public class RegisterPage extends BasePage {
 
     public String getPrivacyPolicyWarning() {
         return getText(privacyPolicyWarning);
+    }
+
+    public void checkPrivacyPolicy() {
+        waitForVisibility(privacyPolicyCheckbox);
+        click(privacyPolicyCheckbox);
+    }
+
+    public void clickContinueButton() {
+        waitForVisibility(continueButton);
+        click(continueButton);
     }
 }
