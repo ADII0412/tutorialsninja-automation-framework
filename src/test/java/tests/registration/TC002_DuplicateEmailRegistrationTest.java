@@ -17,13 +17,15 @@ public class TC002_DuplicateEmailRegistrationTest extends BaseTest {
         HomePage homePage = new HomePage(getDriver());
         RegisterPage registerPage = homePage.navigateToRegister();
 
-        registerPage.registerAccount(
+        registerPage.fillRegistrationForm(
                 TestData.FIRST_NAME,
                 TestData.LAST_NAME,
                 TestData.EXISTING_EMAIL,
                 TestData.PHONE,
                 TestData.PASSWORD
         );
+        registerPage.checkPrivacyPolicy();
+        registerPage.clickContinueButton();
 
         logger.info("Validating duplicate email warning");
 
