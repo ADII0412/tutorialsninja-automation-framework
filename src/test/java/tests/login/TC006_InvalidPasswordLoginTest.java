@@ -9,28 +9,23 @@ import utils.TestData;
 
 public class TC006_InvalidPasswordLoginTest extends BaseTest {
 
-    @Test(description = "Verify warning is shown when valid email but invalid password is used")
+    @Test(description = "Security: Verify system does not reveal valid email existence on password failure")
     public void verifyLoginWithInvalidPassword() {
-
-        logger.info("Starting TC006: Invalid Password Login Test");
-
         HomePage homePage = new HomePage(getDriver());
         LoginPage loginPage = homePage.navigateToLogin();
 
+        logger.info("Attempting login with VALID email but INVALID password");
         loginPage.loginWithInvalidCredentials(
                 TestData.EXISTING_EMAIL,
                 TestData.INVALID_PASSWORD
         );
 
-        logger.info("Validating warning message");
-
         String warning = loginPage.getWarningMessage();
 
-        Assert.assertTrue(
-                warning.contains("No match for E-Mail Address"),
-                "Warning message not displayed for invalid password!"
+        Assert.assertEquals(
+                warning,
+                "Warning: No match for E-Mail Address and/or Password.",
+                "Security Risk: System might be revealing account existence through specific error messages!"
         );
-
-        logger.info("TC006 Passed");
     }
 }
