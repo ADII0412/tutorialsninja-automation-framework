@@ -10,33 +10,23 @@ import utils.TestData;
 
 public class TC014_ProductImageThumbnailClickableTest extends BaseTest {
 
-    @Test(description = "Verify product image thumbnails are clickable and enlarge the image")
+    @Test(description = "Verify product image thumbnails are clickable and trigger a lightbox display")
     public void verifyImageThumbnailsAreClickable() {
-
-        logger.info("Starting TC014: Product Image Thumbnail Click Test");
-
         HomePage homePage = new HomePage(getDriver());
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);
         ProductPage productPage = searchPage.openProduct();
 
-        logger.info("Validating thumbnails are displayed");
-
         Assert.assertTrue(
                 productPage.areProductImagesDisplayed(),
-                "Product thumbnails are not displayed!"
+                "Product thumbnails are not present on the page!"
         );
 
-        logger.info("Clicking first thumbnail");
-
+        logger.info("Clicking the first thumbnail to trigger lightbox animation");
         productPage.clickFirstImageThumbnail();
-
-        logger.info("Validating enlarged image display");
 
         Assert.assertTrue(
                 productPage.isEnlargedImageDisplayed(),
-                "Enlarged product image was not displayed after clicking thumbnail!"
+                "Lightbox/Enlarged image failed to appear after clicking the thumbnail!"
         );
-
-        logger.info("TC014 Passed");
     }
 }
