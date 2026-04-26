@@ -2,57 +2,51 @@ package tests.wishlist;
 
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.TestData;
 
 public class TC022_AddToWishlistWithoutLoginTest extends BaseTest {
 
-    @Test(description = "Verify guest user is redirected to login when adding to wishlist and product persists after login")
-    public void verifyAddToWishlistWithoutLoginRedirectAndPersistence() {
+    private HomePage homePage;
+    private String productName;
 
-        logger.info("Starting TC022: Add To Wishlist Without Login Test");
-
-        HomePage homePage = new HomePage(getDriver());
+    @BeforeMethod
+    public void setupCleanWishlist() {
+        homePage = new HomePage(getDriver());
         LoginPage loginPage = homePage.navigateToLogin();
         loginPage.login(TestData.EXISTING_EMAIL02, TestData.PASSWORD);
 
-        logger.info("Clearing wishlist before test");
-        WishlistPage wishlist = loginPage.navigateToWishlist();
+        WishlistPage wishlist = homePage.navigateToWishlist();
         wishlist.clearWishlist();
-        LogoutPage logout = wishlist.logout();
-        logout.clickContinue();
 
-        homePage = new HomePage(getDriver());
+        homePage.logout().clickContinue();
 
+        logger.info("Setup complete: Wishlist cleared for " + TestData.EXISTING_EMAIL02 + " and user logged out.");
+    }
+
+    @Test(description = "Verify guest user is redirected to login and product persists in wishlist")
+    public void verifyAddToWishlistWithoutLoginRedirectAndPersistence() {
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);
         ProductPage productPage = searchPage.openProduct();
-        String productName = productPage.getProductTitle();
+        productName = productPage.getProductTitle();
 
-        logger.info("Attempting to add product to wishlist without login");
-
+        logger.info("Guest adding product to wishlist: " + productName);
         productPage.addToWishlist();
 
-        logger.info("Validating redirection to login page");
         Assert.assertTrue(
-                getDriver().getCurrentUrl().contains("route=account/login"),
-                "User was not redirected to login page!"
+                getDriver().getCurrentUrl().contains("account/login"),
+                "Guest was not redirected to login page after adding to wishlist!"
         );
 
-        logger.info("Logging in after redirect");
-
+        LoginPage loginPage = new LoginPage(getDriver());
         loginPage.login(TestData.EXISTING_EMAIL02, TestData.PASSWORD);
 
-        logger.info("Navigating to wishlist");
-
-        WishlistPage wishlistPage = new HomePage(getDriver()).navigateToWishlist();
-        logger.info("Validating product persistence in wishlist");
-
+        WishlistPage wishlistPage = homePage.navigateToWishlist();
         Assert.assertTrue(
                 wishlistPage.isProductPresent(productName),
-                "Product not present in wishlist after login: " + productName
+                "Persistence Failure: Product '" + productName + "' was lost after login redirect!"
         );
-
-        logger.info("TC022 Passed");
     }
 }
