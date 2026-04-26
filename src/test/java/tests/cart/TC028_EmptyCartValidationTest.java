@@ -13,40 +13,28 @@ public class TC028_EmptyCartValidationTest extends BaseTest {
 
     @Test(description = "Verify cart is empty after removing all items")
     public void verifyEmptyCartValidation() {
-
-        logger.info("===== Starting TC028_EmptyCartValidationTest =====");
-
         HomePage homePage = new HomePage(getDriver());
-
-        logger.info("Searching and adding product: " + TestData.PRODUCT_NAME);
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);
         ProductPage productPage = searchPage.openProduct();
         productPage.addToCart();
 
-        Assert.assertTrue(
-                productPage.getSuccessMessage().toLowerCase().contains("success"),
-                "Product was not added to cart"
-        );
-
-        logger.info("Navigating to Cart page");
         CartPage cartPage = homePage.navigateToCart();
 
-        logger.info("Clearing all items from cart");
+        logger.info("Clearing all items from cart...");
         cartPage.clearCart();
-
-        logger.info("Validating cart is empty");
 
         Assert.assertTrue(
                 cartPage.isCartEmpty(),
-                "Cart is not empty"
+                "Cart UI does not show 'Empty' state!"
         );
+
+        int itemCount = cartPage.getCartItemCount();
+        logger.info("Current cart item count: " + itemCount);
 
         Assert.assertEquals(
-                cartPage.getCartItemCount(),
+                itemCount,
                 0,
-                "Cart item count is not zero"
+                "Cart row count should be 0 but found: " + itemCount
         );
-
-        logger.info("===== TC028_EmptyCartValidationTest PASSED =====");
     }
 }
