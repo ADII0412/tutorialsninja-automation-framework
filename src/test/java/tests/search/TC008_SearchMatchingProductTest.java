@@ -9,21 +9,26 @@ import utils.TestData;
 
 public class TC008_SearchMatchingProductTest extends BaseTest {
 
-    @Test(description = "Verify search returns results for a valid product")
+    @Test(description = "Verify search results match the search keyword")
     public void verifySearchReturnsMatchingProduct() {
-
-        logger.info("Starting TC008: Search Matching Product Test");
-
         HomePage homePage = new HomePage(getDriver());
-        SearchPage searchPage = homePage.searchProduct(TestData.VALID_PRODUCT);
 
-        logger.info("Validating product search results");
+        logger.info("Searching for product: " + TestData.VALID_PRODUCT);
+        SearchPage searchPage = homePage.searchProduct(TestData.VALID_PRODUCT);
 
         Assert.assertTrue(
                 searchPage.isProductDisplayed(),
-                "No products displayed for valid search!"
+                "Search results page is empty for keyword: " + TestData.VALID_PRODUCT
         );
 
-        logger.info("TC008 Passed");
+        String firstProductName = searchPage.getFirstProductName().toLowerCase();
+        String searchKeyword = TestData.VALID_PRODUCT.toLowerCase();
+
+        logger.info("Validating first search result: " + firstProductName);
+
+        Assert.assertTrue(
+                firstProductName.contains(searchKeyword),
+                "Search result mismatch! Expected keyword '" + searchKeyword + "' but found '" + firstProductName + "'"
+        );
     }
 }
