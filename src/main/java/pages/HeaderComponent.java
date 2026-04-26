@@ -19,6 +19,9 @@ public class HeaderComponent extends BasePage {
     @FindBy(css = ".btn-default.btn-lg")
     private WebElement searchButton;
 
+    @FindBy(id = "cart-total")
+    private WebElement cartTotal;
+
     public LogoutPage logout() {
         waitForVisibility(logoutLink);
         click(logoutLink);
@@ -29,5 +32,12 @@ public class HeaderComponent extends BasePage {
         type(searchInput, keyword);
         click(searchButton);
         return new SearchPage(driver);
+    }
+
+    public int getCartCount() {
+        waitForVisibility(cartTotal);
+        String text = cartTotal.getText();
+        String count = text.split(" ")[0];
+        return Integer.parseInt(count);
     }
 }
