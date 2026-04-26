@@ -73,7 +73,7 @@ Selenium Grid
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/tutorialsninja-automation-framework.git
+   git clone https://github.com/ADII0412/tutorialsninja-automation-framework.git
    ```
 
 2. Navigate to project directory:
