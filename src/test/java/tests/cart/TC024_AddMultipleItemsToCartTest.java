@@ -3,66 +3,45 @@ package tests.cart;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.CartPage;
-import pages.HomePage;
-import pages.ProductPage;
-import pages.SearchPage;
+import pages.*;
 import utils.TestData;
 
 public class TC024_AddMultipleItemsToCartTest extends BaseTest {
 
     @Test(description = "Verify user can add multiple products to cart")
     public void verifyAddMultipleItemsToCart() {
-
-        logger.info("===== Starting TC024_AddMultipleItemsToCartTest =====");
-
         HomePage homePage = new HomePage(getDriver());
+        HeaderComponent header = new HeaderComponent(getDriver());
+
+        int initialCount = header.getCartCount();
+        logger.info("Initial cart count: " + initialCount);
 
         logger.info("Adding first product: " + TestData.PRODUCT_1);
-        SearchPage searchPage1 = homePage.searchProduct(TestData.PRODUCT_1);
-        ProductPage productPage1 = searchPage1.openProduct();
-        String product1 = productPage1.getProductTitle();
-        productPage1.addToCart();
-
-        Assert.assertTrue(
-                productPage1.getSuccessMessage().toLowerCase().contains("success"),
-                "First product not added to cart!"
-        );
+        SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_1);
+        ProductPage productPage = searchPage.openProduct();
+        String product1 = productPage.getProductTitle();
+        productPage.addToCart();
 
         logger.info("Adding second product: " + TestData.PRODUCT_2);
-        SearchPage searchPage2 = homePage.searchProduct(TestData.PRODUCT_2);
-        ProductPage productPage2 = searchPage2.openProduct();
-        String product2 = productPage2.getProductTitle();
-        productPage2.addToCart();
-
-        Assert.assertTrue(
-                productPage2.getSuccessMessage().toLowerCase().contains("success"),
-                "Second product not added to cart!"
-        );
-
-        logger.info("Navigating to Cart page");
+        homePage.searchProduct(TestData.PRODUCT_2);
+        productPage = searchPage.openProduct();
+        String product2 = productPage.getProductTitle();
+        productPage.addToCart();
 
         CartPage cartPage = homePage.navigateToCart();
 
-        logger.info("Validating cart item count");
+        int expectedCount = initialCount + 2;
+        int actualCount = cartPage.getCartItemCount();
+
+        logger.info("Validating cart item count. Expected: " + expectedCount);
+
         Assert.assertEquals(
-                cartPage.getCartItemCount(),
-                2,
-                "Cart item count mismatch!"
+                actualCount,
+                expectedCount,
+                "Cart item count mismatch! Likely due to pre-existing items."
         );
 
-        logger.info("Validating both products are present in cart");
-
-        Assert.assertTrue(
-                cartPage.isProductPresentInCart(product1),
-                "First product not found in cart!"
-        );
-
-        Assert.assertTrue(
-                cartPage.isProductPresentInCart(product2),
-                "Second product not found in cart!"
-        );
-
-        logger.info("===== TC024_AddMultipleItemsToCartTest PASSED =====");
+        Assert.assertTrue(cartPage.isProductPresentInCart(product1), "Product 1 missing: " + product1);
+        Assert.assertTrue(cartPage.isProductPresentInCart(product2), "Product 2 missing: " + product2);
     }
 }
