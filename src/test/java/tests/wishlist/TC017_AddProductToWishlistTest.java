@@ -15,7 +15,7 @@ public class TC017_AddProductToWishlistTest extends BaseTest {
     public void setupWishlistState() {
         homePage = new HomePage(getDriver());
         LoginPage loginPage = homePage.navigateToLogin();
-        loginPage.login(TestData.EXISTING_EMAIL03, TestData.PASSWORD);
+        loginPage.login(TestData.EXISTING_EMAIL02, TestData.PASSWORD);
 
         logger.info("Setup: Clearing wishlist for " + TestData.EXISTING_EMAIL03);
         WishlistPage wishlist = homePage.navigateToWishlist();
