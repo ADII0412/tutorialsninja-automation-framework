@@ -13,16 +13,12 @@ public class TC023_AddToCartTest extends BaseTest {
 
     @Test(description = "Verify user can add a product to cart successfully")
     public void verifyAddToCart() {
-
-        logger.info("Starting TC023: Add To Cart Test");
-
         HomePage homePage = new HomePage(getDriver());
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);
         ProductPage productPage = searchPage.openProduct();
         String productName = productPage.getProductTitle();
 
         logger.info("Adding product to cart: " + productName);
-
         productPage.addToCart();
 
         Assert.assertTrue(
@@ -32,15 +28,11 @@ public class TC023_AddToCartTest extends BaseTest {
 
         CartPage cartPage = productPage.clickCartButton();
 
-        logger.info("Validating product presence in cart");
-
-        System.out.println(cartPage.isProductPresentInCart(TestData.PRODUCT_NAME));
+        logger.info("Validating presence of '" + productName + "' in cart");
 
         Assert.assertTrue(
                 cartPage.isProductPresentInCart(productName),
-                "Product not present in cart: " + productName
+                "Product was missing from the cart table: " + productName
         );
-
-        logger.info("TC023 Passed");
     }
 }
