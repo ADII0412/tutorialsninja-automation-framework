@@ -96,6 +96,7 @@ public class ProductPage extends BasePage {
     }
 
     public boolean isEnlargedImageDisplayed() {
+        waitForVisibility(enlargedImage);
         return isDisplayed(enlargedImage);
     }
 
