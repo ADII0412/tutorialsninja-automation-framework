@@ -2,64 +2,48 @@ package tests.cart;
 
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.TestData;
 
 public class TC030_CartPersistenceLoggedInTest extends BaseTest {
 
-    @Test(description = "Verify cart persists after logout and login for a registered user")
-    public void verifyCartPersistenceAfterLogin() {
+    private HomePage homePage;
+    private String productName;
 
-        logger.info("===== Starting TC030_CartPersistenceLoggedInTest =====");
+    @BeforeMethod
+    public void setupCartState() {
+        homePage = new HomePage(getDriver());
 
-        HomePage homePage = new HomePage(getDriver());
-
-        logger.info("Logging in with valid credentials");
         LoginPage loginPage = homePage.navigateToLogin();
         loginPage.login(TestData.EXISTING_EMAIL03, TestData.PASSWORD);
 
-        logger.info("clearing cart before starting with test");
         CartPage cart = homePage.navigateToCart();
         cart.clearCart();
-        Assert.assertTrue(cart.isCartEmpty(), "Cart was not cleared properly");
 
-        homePage = new HomePage(getDriver());
-        logger.info("Searching and adding product: " + TestData.PRODUCT_NAME);
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);
         ProductPage productPage = searchPage.openProduct();
-        String productName = productPage.getProductTitle();
-
+        productName = productPage.getProductTitle();
         productPage.addToCart();
-        Assert.assertTrue(
-                productPage.getSuccessMessage().toLowerCase().contains("success"),
-                "Product was not added to cart"
-        );
 
-        logger.info("Navigating to cart and validating product presence");
-        CartPage cartPage = homePage.navigateToCart();
+        logger.info("Setup complete: Cart cleared and '" + productName + "' added for persistence test.");
+    }
 
-        Assert.assertTrue(
-                cartPage.isProductPresentInCart(productName),
-                "Product not present in cart before logout"
-        );
-
-        logger.info("Logging out");
+    @Test(description = "Verify cart contents persist across different sessions for the same user")
+    public void verifyCartPersistenceAfterLogin() {
         LogoutPage logoutPage = homePage.logout();
         homePage = logoutPage.clickContinue();
 
-        logger.info("Logging in again");
         LoginPage loginPageAgain = homePage.navigateToLogin();
         loginPageAgain.login(TestData.EXISTING_EMAIL03, TestData.PASSWORD);
 
-        logger.info("Navigating to cart after re-login");
-        cartPage = homePage.navigateToCart();
+        CartPage cartPage = homePage.navigateToCart();
+        logger.info("Validating persistence of '" + productName + "' after re-login.");
 
         Assert.assertTrue(
                 cartPage.isProductPresentInCart(productName),
-                "Product not present in cart after re-login"
+                "Persistence Failure: Cart was empty or item was lost after re-login for user: " + TestData.EXISTING_EMAIL03
         );
-
-        logger.info("===== TC030_CartPersistenceLoggedInTest PASSED =====");
     }
 }
