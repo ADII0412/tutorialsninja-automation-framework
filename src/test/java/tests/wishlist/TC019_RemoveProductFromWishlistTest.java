@@ -2,53 +2,41 @@ package tests.wishlist;
 
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.TestData;
 
 public class TC019_RemoveProductFromWishlistTest extends BaseTest {
 
-    @Test(description = "Verify user can remove a product from wishlist successfully")
-    public void verifyRemoveProductFromWishlist() {
+    private HomePage homePage;
+    private String productName;
 
-        logger.info("Starting TC019: Remove Product From Wishlist Test");
-
-        HomePage homePage = new HomePage(getDriver());
+    @BeforeMethod
+    public void setupWishlistWithProduct() {
+        homePage = new HomePage(getDriver());
         LoginPage loginPage = homePage.navigateToLogin();
         loginPage.login(TestData.EXISTING_EMAIL02, TestData.PASSWORD);
-
-        logger.info("Clearing wishlist before test");
-        WishlistPage wishlist = loginPage.navigateToWishlist();
+        WishlistPage wishlist = homePage.navigateToWishlist();
         wishlist.clearWishlist();
-
-        homePage = new HomePage(getDriver());
-
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);
         ProductPage productPage = searchPage.openProduct();
-        String productName = productPage.getProductTitle();
-
-        logger.info("Adding product to wishlist: " + productName);
+        productName = productPage.getProductTitle();
         productPage.addToWishlist();
+
+        logger.info("Setup complete: Logged in and product '" + productName + "' added to wishlist.");
+    }
+
+    @Test(description = "Verify user can remove a product from wishlist successfully")
+    public void verifyRemoveProductFromWishlist() {
         WishlistPage wishlistPage = homePage.navigateToWishlist();
 
-        logger.info("Validating product is added to wishlist");
-
-        Assert.assertTrue(
-                wishlistPage.isProductPresent(productName),
-                "Product not added to wishlist!"
-        );
-
-        logger.info("Removing product from wishlist");
-
+        logger.info("Removing product from wishlist: " + productName);
         wishlistPage.removeProductByName(productName);
-
-        logger.info("Validating product is removed from wishlist");
 
         Assert.assertFalse(
                 wishlistPage.isProductPresent(productName),
-                "Product still present in wishlist after removal: " + productName
+                "Critical Failure: Product '" + productName + "' still exists in wishlist after deletion!"
         );
-
-        logger.info("TC019 Passed");
     }
 }
