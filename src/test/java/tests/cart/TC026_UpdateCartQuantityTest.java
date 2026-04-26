@@ -10,12 +10,8 @@ import pages.SearchPage;
 import utils.TestData;
 
 public class TC026_UpdateCartQuantityTest extends BaseTest {
-
     @Test(description = "Verify user can update product quantity in cart")
     public void verifyUpdateCartQuantity() {
-
-        logger.info("===== Starting TC026_UpdateCartQuantityTest =====");
-
         HomePage homePage = new HomePage(getDriver());
 
         logger.info("Searching and adding product: " + TestData.PRODUCT_NAME);
@@ -46,7 +42,5 @@ public class TC026_UpdateCartQuantityTest extends BaseTest {
                 expectedQty,
                 "Product quantity update failed"
         );
-
-        logger.info("===== TC026_UpdateCartQuantityTest PASSED =====");
     }
 }

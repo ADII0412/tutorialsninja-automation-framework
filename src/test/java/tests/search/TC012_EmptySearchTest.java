@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.SearchPage;
 
-public class TC011_EmptySearchTest extends BaseTest {
+public class TC012_EmptySearchTest extends BaseTest {
     @Test(description = "Verify system handles blank search input gracefully")
     public void verifyEmptySearch() {
         HomePage homePage = new HomePage(getDriver());

@@ -7,13 +7,10 @@ import pages.HomePage;
 import pages.SearchPage;
 import utils.TestData;
 
-public class TC011_SearchUsingCategoryFilterTest extends BaseTest {
+public class TC009_SearchUsingCategoryFilterTest extends BaseTest {
 
     @Test(description = "Verify search works with category and subcategory filters")
     public void verifySearchUsingCategoryFilter() {
-
-        logger.info("Starting TC011: Category Filter Search Test");
-
         HomePage homePage = new HomePage(getDriver());
         SearchPage searchPage = homePage.searchProduct(TestData.CATEGORY_PRODUCT);
 
@@ -33,7 +30,5 @@ public class TC011_SearchUsingCategoryFilterTest extends BaseTest {
                         .contains(TestData.CATEGORY_PRODUCT.toLowerCase()),
                 "Filtered results do not match expected product!"
         );
-
-        logger.info("TC011 Passed");
     }
 }

@@ -11,9 +11,6 @@ import utils.TestData;
 public class TC001_RegisterWithMandatoryFieldsTest extends BaseTest {
     @Test(description = "Verify user can register with mandatory fields")
     public void verifyRegisterWithMandatoryFields() {
-
-        logger.info("Starting TC001: Register with mandatory fields");
-
         HomePage homePage = new HomePage(getDriver());
         RegisterPage registerPage = homePage.navigateToRegister();
 
@@ -33,8 +30,6 @@ public class TC001_RegisterWithMandatoryFieldsTest extends BaseTest {
                 successPage.getSuccessMessage().contains("Your Account Has Been Created"),
                 "Account creation failed!"
         );
-
-        logger.info("TC001 Passed");
     }
 
 }

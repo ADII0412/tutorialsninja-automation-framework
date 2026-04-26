@@ -10,12 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TC018_AddMultipleProductsToWishlistTest extends BaseTest {
-
     @Test(description = "Verify user can add multiple products to wishlist")
     public void verifyAddMultipleProductsToWishlist() {
-
-        logger.info("Starting TC018: Add Multiple Products To Wishlist Test");
-
         HomePage homePage = new HomePage(getDriver());
         LoginPage loginPage = homePage.navigateToLogin();
         loginPage.login(TestData.EXISTING_EMAIL02, TestData.PASSWORD);
@@ -58,7 +54,5 @@ public class TC018_AddMultipleProductsToWishlistTest extends BaseTest {
                 expectedProducts.size(),
                 "Wishlist item count mismatch!"
         );
-
-        logger.info("TC018 Passed");
     }
 }

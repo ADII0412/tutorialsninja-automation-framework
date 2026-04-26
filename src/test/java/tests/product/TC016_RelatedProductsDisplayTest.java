@@ -9,7 +9,6 @@ import pages.SearchPage;
 import utils.TestData;
 
 public class TC016_RelatedProductsDisplayTest extends BaseTest {
-
     @Test(description = "Verify related products are displayed on product page")
     public void verifyRelatedProductsDisplayCorrectly() {
 

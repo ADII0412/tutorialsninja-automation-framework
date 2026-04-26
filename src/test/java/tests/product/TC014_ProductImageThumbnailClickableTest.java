@@ -9,7 +9,6 @@ import pages.SearchPage;
 import utils.TestData;
 
 public class TC014_ProductImageThumbnailClickableTest extends BaseTest {
-
     @Test(description = "Verify product image thumbnails are clickable and trigger a lightbox display")
     public void verifyImageThumbnailsAreClickable() {
         HomePage homePage = new HomePage(getDriver());

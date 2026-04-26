@@ -13,9 +13,6 @@ public class TC029_CartPersistenceTest extends BaseTest {
 
     @Test(description = "Verify cart retains items after page refresh")
     public void TC029_verifyCartPersistence() {
-
-        logger.info("===== Starting TC029_CartPersistenceTest =====");
-
         HomePage homePage = new HomePage(getDriver());
 
         logger.info("Searching and adding product: " + TestData.PRODUCT_NAME);
@@ -46,7 +43,5 @@ public class TC029_CartPersistenceTest extends BaseTest {
                 cartPage.isProductPresentInCart(productName),
                 "Product not present in cart after refresh"
         );
-
-        logger.info("===== TC029_CartPersistenceTest PASSED =====");
     }
 }

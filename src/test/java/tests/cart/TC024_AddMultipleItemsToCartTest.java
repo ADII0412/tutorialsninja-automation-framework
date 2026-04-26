@@ -7,7 +7,6 @@ import pages.*;
 import utils.TestData;
 
 public class TC024_AddMultipleItemsToCartTest extends BaseTest {
-
     @Test(description = "Verify user can add multiple products to cart")
     public void verifyAddMultipleItemsToCart() {
         HomePage homePage = new HomePage(getDriver());

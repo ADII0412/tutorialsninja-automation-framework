@@ -13,9 +13,6 @@ public class TC025_AddSameItemMultipleTimesTest extends BaseTest {
 
     @Test(description = "Verify quantity increases when same product is added multiple times")
     public void verifyAddSameItemMultipleTimes() {
-
-        logger.info("===== Starting TC025_AddSameItemMultipleTimesTest =====");
-
         HomePage homePage = new HomePage(getDriver());
 
         logger.info("Searching product: " + TestData.PRODUCT_NAME);
@@ -49,7 +46,5 @@ public class TC025_AddSameItemMultipleTimesTest extends BaseTest {
                 2,
                 "Product quantity did not match expected value"
         );
-
-        logger.info("===== TC025_AddSameItemMultipleTimesTest PASSED =====");
     }
 }

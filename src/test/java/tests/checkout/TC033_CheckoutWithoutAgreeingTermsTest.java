@@ -10,9 +10,6 @@ public class TC033_CheckoutWithoutAgreeingTermsTest extends BaseTest {
 
     @Test(description = "Verify checkout fails if terms are not agreed")
     public void verifyCheckoutWithoutAgreeingTerms() {
-
-        logger.info("===== Starting TC033_CheckoutWithoutAgreeingTermsTest =====");
-
         HomePage homePage = new HomePage(getDriver());
 
         LoginPage loginPage = homePage.navigateToLogin();
@@ -32,13 +29,11 @@ public class TC033_CheckoutWithoutAgreeingTermsTest extends BaseTest {
         checkoutPage.continueDeliveryDetails();
         checkoutPage.continueDeliveryMethod("Test");
 
-        checkoutPage.confirmOrder(); // skipping terms intentionally
+        checkoutPage.confirmOrder();
 
         Assert.assertTrue(
                 checkoutPage.getTermsWarning().contains("Warning"),
                 "Warning not displayed when terms not agreed"
         );
-
-        logger.info("===== TC033 PASSED =====");
     }
 }

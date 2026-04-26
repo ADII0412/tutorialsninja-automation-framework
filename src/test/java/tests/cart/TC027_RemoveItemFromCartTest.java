@@ -10,12 +10,8 @@ import pages.SearchPage;
 import utils.TestData;
 
 public class TC027_RemoveItemFromCartTest extends BaseTest {
-
     @Test(description = "Verify user can remove item from cart successfully")
     public void verifyRemoveItemFromCart() {
-
-        logger.info("===== Starting TC027_RemoveItemFromCartTest =====");
-
         HomePage homePage = new HomePage(getDriver());
 
         logger.info("Searching and adding product: " + TestData.PRODUCT_NAME);
@@ -47,7 +43,5 @@ public class TC027_RemoveItemFromCartTest extends BaseTest {
                 cartPage.isCartEmpty(),
                 "Cart is not empty after removing product"
         );
-
-        logger.info("===== TC027_RemoveItemFromCartTest PASSED =====");
     }
 }

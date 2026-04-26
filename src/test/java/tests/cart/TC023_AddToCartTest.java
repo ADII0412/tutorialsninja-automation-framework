@@ -10,7 +10,6 @@ import pages.SearchPage;
 import utils.TestData;
 
 public class TC023_AddToCartTest extends BaseTest {
-
     @Test(description = "Verify user can add a product to cart successfully")
     public void verifyAddToCart() {
         HomePage homePage = new HomePage(getDriver());

@@ -10,9 +10,6 @@ public class TC032_CheckoutWithoutProductTest extends BaseTest {
 
     @Test(description = "Verify user cannot proceed to checkout with empty cart")
     public void verifyCheckoutWithoutProduct() {
-
-        logger.info("===== Starting TC032_CheckoutWithoutProductTest =====");
-
         HomePage homePage = new HomePage(getDriver());
 
         CartPage cartPage = homePage.navigateToCart();
@@ -32,7 +29,5 @@ public class TC032_CheckoutWithoutProductTest extends BaseTest {
                 canCheckout,
                 "User should not be able to checkout with empty cart"
         );
-
-        logger.info("===== TC032 PASSED =====");
     }
 }

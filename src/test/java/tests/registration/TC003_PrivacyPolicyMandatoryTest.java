@@ -11,9 +11,6 @@ public class TC003_PrivacyPolicyMandatoryTest extends BaseTest {
 
     @Test(description = "Verify privacy policy checkbox is mandatory during registration")
     public void verifyPrivacyPolicyCheckboxMandatory() {
-
-        logger.info("Starting TC003: Privacy Policy Mandatory Test");
-
         HomePage homePage = new HomePage(getDriver());
         RegisterPage registerPage = homePage.navigateToRegister();
 
@@ -35,7 +32,5 @@ public class TC003_PrivacyPolicyMandatoryTest extends BaseTest {
                 warning.contains("You must agree"),
                 "Privacy policy warning not displayed!"
         );
-
-        logger.info("TC003 Passed");
     }
 }

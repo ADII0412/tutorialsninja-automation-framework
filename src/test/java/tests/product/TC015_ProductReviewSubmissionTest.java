@@ -9,7 +9,6 @@ import pages.SearchPage;
 import utils.TestData;
 
 public class TC015_ProductReviewSubmissionTest extends BaseTest {
-
     @Test(description = "Verify user can submit a product review successfully")
     public void verifyProductReviewSubmission() {
         HomePage homePage = new HomePage(getDriver());

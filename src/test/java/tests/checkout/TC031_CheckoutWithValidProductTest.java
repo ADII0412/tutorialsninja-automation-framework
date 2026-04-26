@@ -10,9 +10,6 @@ public class TC031_CheckoutWithValidProductTest extends BaseTest {
 
     @Test(description = "Verify user can successfully place an order")
     public void verifyCheckoutWithValidProduct() {
-
-        logger.info("===== Starting TC031_CheckoutWithValidProductTest =====");
-
         HomePage homePage = new HomePage(getDriver());
 
         LoginPage loginPage = homePage.navigateToLogin();
@@ -37,7 +34,5 @@ public class TC031_CheckoutWithValidProductTest extends BaseTest {
                 checkoutPage.isOrderPlaced(),
                 "Order was not placed successfully"
         );
-
-        logger.info("===== TC031 PASSED =====");
     }
 }

@@ -7,7 +7,7 @@ import pages.HomePage;
 import pages.LoginPage;
 import utils.LoginDataLib;
 
-public class TC004_LoginDataDrivenTest extends BaseTest {
+public class TC006_LoginDataDrivenTest extends BaseTest {
 
     @Test(
             dataProvider = "loginScenarios",

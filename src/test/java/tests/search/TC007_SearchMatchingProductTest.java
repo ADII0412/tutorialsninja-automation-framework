@@ -7,7 +7,7 @@ import pages.HomePage;
 import pages.SearchPage;
 import utils.TestData;
 
-public class TC008_SearchMatchingProductTest extends BaseTest {
+public class TC007_SearchMatchingProductTest extends BaseTest {
 
     @Test(description = "Verify search results match the search keyword")
     public void verifySearchReturnsMatchingProduct() {
