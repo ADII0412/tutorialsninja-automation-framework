@@ -24,7 +24,6 @@ public class TC017_AddProductToWishlistTest extends BaseTest {
 
     @Test(description = "Verify user can add product to wishlist successfully")
     public void verifyAddProductToWishlist() {
-        // Test starts directly with the action
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);
         productPage = searchPage.openProduct();
         String expectedProductName = productPage.getProductTitle();
