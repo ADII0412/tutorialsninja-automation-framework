@@ -13,9 +13,6 @@ public class TC035_AddMultipleProductsToCompareTest extends BaseTest {
 
     @Test(description = "Verify user can add multiple products to compare list")
     public void TC035_verifyAddMultipleProductsToCompare() {
-
-        logger.info("===== Starting TC035_AddMultipleProductsToCompareTest =====");
-
         HomePage homePage = new HomePage(getDriver());
 
         List<String> expectedProducts = new ArrayList<>();
@@ -48,7 +45,5 @@ public class TC035_AddMultipleProductsToCompareTest extends BaseTest {
                     "Product not found in compare list: " + product
             );
         }
-
-        logger.info("===== TC035_AddMultipleProductsToCompareTest PASSED =====");
     }
 }

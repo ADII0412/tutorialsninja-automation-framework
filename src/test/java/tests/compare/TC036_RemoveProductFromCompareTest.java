@@ -10,9 +10,6 @@ public class TC036_RemoveProductFromCompareTest extends BaseTest {
 
     @Test(description = "Verify user can remove product from compare list")
     public void TC036_verifyRemoveProductFromCompare() {
-
-        logger.info("===== Starting TC036_RemoveProductFromCompareTest =====");
-
         HomePage homePage = new HomePage(getDriver());
 
         logger.info("Adding product to compare: " + TestData.PRODUCT_NAME);
@@ -43,7 +40,5 @@ public class TC036_RemoveProductFromCompareTest extends BaseTest {
                 comparePage.isCompareListEmpty(),
                 "Compare list is not empty after removal"
         );
-
-        logger.info("===== TC036_RemoveProductFromCompareTest PASSED =====");
     }
 }
