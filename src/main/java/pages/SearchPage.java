@@ -107,6 +107,7 @@ public class SearchPage extends BasePage {
     }
 
     public String getNoProductMessage() {
+        waitForVisibility(noProductMessage);
         return getText(noProductMessage);
     }
 
