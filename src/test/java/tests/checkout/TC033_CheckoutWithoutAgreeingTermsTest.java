@@ -2,38 +2,47 @@ package tests.checkout;
 
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.TestData;
 
 public class TC033_CheckoutWithoutAgreeingTermsTest extends BaseTest {
+    private CheckoutPage checkoutPage;
 
-    @Test(description = "Verify checkout fails if terms are not agreed")
-    public void verifyCheckoutWithoutAgreeingTerms() {
+    @BeforeMethod
+    public void setupCartForCheckout() {
         HomePage homePage = new HomePage(getDriver());
-
         LoginPage loginPage = homePage.navigateToLogin();
         loginPage.login(TestData.EXISTING_EMAIL03, TestData.PASSWORD);
 
-        SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);
-        ProductPage productPage = searchPage.openProduct();
+        CartPage cart = homePage.navigateToCart();
+        cart.clearCart();
 
-        productPage.addToCart();
+        homePage.searchProduct(TestData.PRODUCT_FOR_CHECKOUT).openProduct().addToCart();
+        this.checkoutPage = homePage.navigateToCart().proceedToCheckout();
 
-        CartPage cartPage = homePage.navigateToCart();
-        CheckoutPage checkoutPage = cartPage.proceedToCheckout();
+        logger.info("Setup: Logged in and reached checkout with " + TestData.PRODUCT_FOR_CHECKOUT);
+    }
 
-        logger.info("Proceeding checkout without agreeing terms");
-
+    @Test(description = "Verify warning when terms and conditions are not accepted")
+    public void verifyCheckoutWithoutTerms() {
+        logger.info("Navigating through billing and delivery details...");
         checkoutPage.continueBillingDetails();
         checkoutPage.continueDeliveryDetails();
-        checkoutPage.continueDeliveryMethod("Test");
 
-        checkoutPage.confirmOrder();
+        logger.info("Selecting delivery method...");
+        checkoutPage.continueDeliveryMethod("");
+
+        logger.info("Attempting to proceed without agreeing to Terms & Conditions...");
+        checkoutPage.clickPaymentMethodContinueWithoutTerms();
+
+        String warning = checkoutPage.getTermsWarning();
+        logger.info("Captured warning message: " + warning);
 
         Assert.assertTrue(
-                checkoutPage.getTermsWarning().contains("Warning"),
-                "Warning not displayed when terms not agreed"
+                warning.contains("Warning: You must agree to the Terms & Conditions!"),
+                "Expected terms warning not displayed! Actual: " + warning
         );
     }
 }
