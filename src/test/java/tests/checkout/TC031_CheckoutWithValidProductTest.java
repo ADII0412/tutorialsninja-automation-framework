@@ -15,7 +15,7 @@ public class TC031_CheckoutWithValidProductTest extends BaseTest {
         LoginPage loginPage = homePage.navigateToLogin();
         loginPage.login(TestData.EXISTING_EMAIL03, TestData.PASSWORD);
 
-        SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);
+        SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_FOR_CHECKOUT);
         ProductPage productPage = searchPage.openProduct();
 
         productPage.addToCart();
