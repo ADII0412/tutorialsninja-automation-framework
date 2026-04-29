@@ -15,7 +15,6 @@ public class BasePage {
 
     protected WebDriver driver;
     protected WebDriverWait wait;
-    public HeaderComponent header;
 
     private static final int DEFAULT_TIMEOUT = 10;
 
