@@ -16,9 +16,9 @@
         <selenium.version>4.20.0</selenium.version>
         <testng.version>7.10.2</testng.version>
         <extentreports.version>5.1.1</extentreports.version>
-        <log4j.version>2.23.1</log4j.version>
+        <log4j.version>2.25.4</log4j.version>
         <webdrivermanager.version>5.8.0</webdrivermanager.version> <commons-io.version>2.16.1</commons-io.version>
-        <commons-lang.version>3.14.0</commons-lang.version>
+        <commons-lang.version>3.18.0</commons-lang.version>
     </properties>
 
     <dependencies>
