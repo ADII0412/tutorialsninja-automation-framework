@@ -24,7 +24,5 @@ public class TC016_RelatedProductsDisplayTest extends BaseTest {
                 productPage.areRelatedProductsDisplayed(),
                 "Related products are not displayed on product page!"
         );
-
-        logger.info("TC016 Passed");
     }
 }

@@ -9,7 +9,7 @@ import utils.TestData;
 public class TC036_RemoveProductFromCompareTest extends BaseTest {
 
     @Test(description = "Verify user can remove product from compare list")
-    public void TC036_verifyRemoveProductFromCompare() {
+    public void verifyRemoveProductFromCompare() {
         HomePage homePage = new HomePage(getDriver());
 
         logger.info("Adding product to compare: " + TestData.PRODUCT_NAME);

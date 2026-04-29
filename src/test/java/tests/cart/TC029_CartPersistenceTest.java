@@ -12,7 +12,7 @@ import utils.TestData;
 public class TC029_CartPersistenceTest extends BaseTest {
 
     @Test(description = "Verify cart retains items after page refresh")
-    public void TC029_verifyCartPersistence() {
+    public void verifyCartPersistence() {
         HomePage homePage = new HomePage(getDriver());
 
         logger.info("Searching and adding product: " + TestData.PRODUCT_NAME);

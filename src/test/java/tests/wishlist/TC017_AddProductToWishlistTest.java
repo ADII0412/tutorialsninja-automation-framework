@@ -17,7 +17,7 @@ public class TC017_AddProductToWishlistTest extends BaseTest {
         LoginPage loginPage = homePage.navigateToLogin();
         loginPage.login(TestData.EXISTING_EMAIL02, TestData.PASSWORD);
 
-        logger.info("Setup: Clearing wishlist for " + TestData.EXISTING_EMAIL03);
+        logger.info("Setup: Clearing wishlist for " + TestData.EXISTING_EMAIL02);
         WishlistPage wishlist = homePage.navigateToWishlist();
         wishlist.clearWishlist();
     }

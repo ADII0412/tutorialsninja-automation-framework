@@ -9,7 +9,7 @@ import utils.TestData;
 public class TC034_AddProductToCompareTest extends BaseTest {
 
     @Test(description = "Verify user can add a product to compare list")
-    public void TC034_verifyAddProductToCompare() {
+    public void verifyAddProductToCompare() {
         HomePage homePage = new HomePage(getDriver());
 
         logger.info("Searching product: " + TestData.PRODUCT_NAME);

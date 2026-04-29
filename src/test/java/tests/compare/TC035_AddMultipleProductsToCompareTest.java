@@ -12,7 +12,7 @@ import java.util.List;
 public class TC035_AddMultipleProductsToCompareTest extends BaseTest {
 
     @Test(description = "Verify user can add multiple products to compare list")
-    public void TC035_verifyAddMultipleProductsToCompare() {
+    public void verifyAddMultipleProductsToCompare() {
         HomePage homePage = new HomePage(getDriver());
 
         List<String> expectedProducts = new ArrayList<>();
