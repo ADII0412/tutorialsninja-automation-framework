@@ -41,6 +41,9 @@ public class RegisterPage extends BasePage {
     @FindBy(xpath = "//input[@value='Continue']")
     private WebElement continueButton;
 
+    @FindBy(xpath = "//div[@class='text-danger']")
+    private WebElement passwordMismatchText;
+
     public void fillRegistrationForm(String firstName, String lastName, String email, String telephone, String password) {
         waitForVisibility(firstNameField);
         type(firstNameField, firstName);
@@ -49,6 +52,16 @@ public class RegisterPage extends BasePage {
         type(telephoneField, telephone);
         type(passwordField, password);
         type(confirmPasswordField, password);
+    }
+
+    public void registerUserWithPasswordMismatch(String firstName, String lastName, String email, String telephone, String password, String cnfrmPassword) {
+        waitForVisibility(firstNameField);
+        type(firstNameField, firstName);
+        type(lastNameField, lastName);
+        type(emailField, email);
+        type(telephoneField, telephone);
+        type(passwordField, password);
+        type(confirmPasswordField, cnfrmPassword);
     }
 
     public AccountSuccessPage registerAccount(String firstName, String lastName, String email, String telephone, String password) {
@@ -69,6 +82,11 @@ public class RegisterPage extends BasePage {
 
     public String getPrivacyPolicyWarning() {
         return getText(privacyPolicyWarning);
+    }
+
+    public String getPasswordMismatchErrorMessage(){
+        waitForVisibility(passwordMismatchText);
+        return getText(passwordMismatchText);
     }
 
     public void checkPrivacyPolicy() {
