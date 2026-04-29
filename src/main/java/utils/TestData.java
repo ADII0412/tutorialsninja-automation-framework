@@ -30,6 +30,8 @@ public class TestData {
     public static final String PRODUCT_1 = "iPhone";
     public static final String PRODUCT_2 = "MacBook";
 
+    public static final String PRODUCT_FOR_CHECKOUT = "HP LP3065";
+
     public static String generateEmail() {
         return "user" + System.currentTimeMillis() + "@mail.com";
     }
