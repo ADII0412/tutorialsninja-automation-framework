@@ -38,36 +38,50 @@ public class CheckoutPage extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'alert-danger')]")
     private WebElement termsWarning;
 
-    //ACTION METHODS
+    // ACTION METHODS
     public void continueBillingDetails() {
+        waitForClickable(billingContinueBtn);
         click(billingContinueBtn);
     }
 
     public void continueDeliveryDetails() {
+        waitForClickable(deliveryContinueBtn);
         click(deliveryContinueBtn);
     }
 
     public void continueDeliveryMethod(String comment) {
         if (comment != null && !comment.isEmpty()) {
+            waitForVisibility(deliveryCommentBox);
             type(deliveryCommentBox, comment);
         }
+        waitForClickable(deliveryMethodContinueBtn);
         click(deliveryMethodContinueBtn);
     }
 
+    // This method is for the HAPPY PATH (Accepting terms)
     public void continuePaymentMethod() {
+        waitForClickable(termsCheckbox);
         click(termsCheckbox);
+        waitForClickable(paymentMethodContinueBtn);
+        click(paymentMethodContinueBtn);
+    }
+
+    // NEW: Specifically for TC033 (Negative Path - No Terms)
+    public void clickPaymentMethodContinueWithoutTerms() {
+        waitForClickable(paymentMethodContinueBtn);
         click(paymentMethodContinueBtn);
     }
 
     public void confirmOrder() {
+        waitForClickable(confirmOrderBtn);
         click(confirmOrderBtn);
     }
 
     public String getTermsWarning() {
+        waitForVisibility(termsWarning);
         return termsWarning.getText();
     }
 
-    //COMPLETE CHECKOUT FLOW
     public void placeOrder(String comment) {
         continueBillingDetails();
         continueDeliveryDetails();
@@ -76,7 +90,7 @@ public class CheckoutPage extends BasePage {
         confirmOrder();
     }
 
-    //VALIDATION
+    // VALIDATION
     public boolean isOrderPlaced() {
         return isDisplayed(orderSuccessMessage);
     }
