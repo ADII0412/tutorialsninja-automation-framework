@@ -41,7 +41,7 @@ public class RegisterPage extends BasePage {
     @FindBy(xpath = "//input[@value='Continue']")
     private WebElement continueButton;
 
-    @FindBy(xpath = "//div[@class='text-danger']")
+    @FindBy(xpath = "//input[@id='input-confirm']/following-sibling::div[@class='text-danger']")
     private WebElement passwordMismatchText;
 
     public void fillRegistrationForm(String firstName, String lastName, String email, String telephone, String password) {
@@ -62,6 +62,7 @@ public class RegisterPage extends BasePage {
         type(telephoneField, telephone);
         type(passwordField, password);
         type(confirmPasswordField, cnfrmPassword);
+        click(continueButton);
     }
 
     public AccountSuccessPage registerAccount(String firstName, String lastName, String email, String telephone, String password) {

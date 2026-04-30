@@ -40,12 +40,12 @@ public class CheckoutPage extends BasePage {
 
     // ACTION METHODS
     public void continueBillingDetails() {
-        waitForClickable(billingContinueBtn);
+        waitForVisibility(billingContinueBtn);
         click(billingContinueBtn);
     }
 
     public void continueDeliveryDetails() {
-        waitForClickable(deliveryContinueBtn);
+        waitForVisibility(deliveryContinueBtn);
         click(deliveryContinueBtn);
     }
 
@@ -54,21 +54,21 @@ public class CheckoutPage extends BasePage {
             waitForVisibility(deliveryCommentBox);
             type(deliveryCommentBox, comment);
         }
-        waitForClickable(deliveryMethodContinueBtn);
+        waitForVisibility(deliveryMethodContinueBtn);
         click(deliveryMethodContinueBtn);
     }
 
     // This method is for the HAPPY PATH (Accepting terms)
     public void continuePaymentMethod() {
-        waitForClickable(termsCheckbox);
+        waitForVisibility(termsCheckbox);
         click(termsCheckbox);
-        waitForClickable(paymentMethodContinueBtn);
+        waitForVisibility(paymentMethodContinueBtn);
         click(paymentMethodContinueBtn);
     }
 
     // NEW: Specifically for TC033 (Negative Path - No Terms)
     public void clickPaymentMethodContinueWithoutTerms() {
-        waitForClickable(paymentMethodContinueBtn);
+        waitForVisibility(paymentMethodContinueBtn);
         click(paymentMethodContinueBtn);
     }
 

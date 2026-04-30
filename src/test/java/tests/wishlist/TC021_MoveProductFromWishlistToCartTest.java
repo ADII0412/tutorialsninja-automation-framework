@@ -30,14 +30,14 @@ public class TC021_MoveProductFromWishlistToCartTest extends BaseTest {
     }
 
     @Test(description = "Verify product can be moved from wishlist to cart successfully")
-    public void verifyMoveProductFromWishlistToCart() {
+    public void verifyMoveProductFromWishlistToCart() throws InterruptedException {
         WishlistPage wishlistPage = homePage.navigateToWishlist();
 
         logger.info("Action: Moving product to cart: " + productName);
         wishlistPage.moveProductToCartByName(productName);
 
         Assert.assertFalse(
-                wishlistPage.isProductPresent(productName),
+                wishlistPage.isWishlistEmpty(),
                 "Product should have been removed from wishlist but is still there!"
         );
 

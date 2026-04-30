@@ -49,6 +49,3 @@ Thumbs.db
 
 # Test output
 test-output/
-
-# Environment files
-*.properties

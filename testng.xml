@@ -3,6 +3,10 @@
 
 <suite name="TutorialsNinja Automation Suite" parallel="tests" thread-count="2">
 
+    <listeners>
+        <listener class-name="listeners.TestListener"/>
+    </listeners>
+
     <!-- ================= REGISTRATION ================= -->
     <test name="Registration Tests">
         <packages>

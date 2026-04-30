@@ -24,6 +24,14 @@ public class BaseTest {
         } catch (IOException e) {
             throw new RuntimeException("Failed to load config.properties", e);
         }
+
+        if (System.getProperty("browser") != null)
+            prop.setProperty("browser", System.getProperty("browser"));
+        if (System.getProperty("headless") != null)
+            prop.setProperty("headless", System.getProperty("headless"));
+        if (System.getProperty("baseUrl") != null)
+            prop.setProperty("baseUrl", System.getProperty("baseUrl"));
+
         return prop;
     }
 

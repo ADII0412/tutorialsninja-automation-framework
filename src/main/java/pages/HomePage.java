@@ -70,8 +70,20 @@ public class HomePage extends BasePage {
     }
 
     public CartPage navigateToCart() {
-        click(cartButton);
-        click(viewCartOption);
+        int attempts = 0;
+        while (attempts < 3) {
+            try {
+                waitForClickable(cartButton);
+                click(cartButton);
+                waitForVisibility(viewCartOption);
+                click(viewCartOption);
+                return new CartPage(driver);
+            } catch (Exception e) {
+                attempts++;
+                if (attempts == 3) throw e;
+                // Optional: small sleep if needed
+            }
+        }
         return new CartPage(driver);
     }
 

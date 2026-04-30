@@ -49,7 +49,7 @@ public class CartPage extends BasePage {
     // VALIDATIONS
     public boolean isProductPresentInCart(String name) {
         WebElement row = getRowByProductName(name);
-        return row != null && row.isDisplayed();
+        return row != null && isDisplayed(row);
     }
 
     public int getCartItemCount() {

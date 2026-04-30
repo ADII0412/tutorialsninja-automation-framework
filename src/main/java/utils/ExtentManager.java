@@ -12,7 +12,7 @@ public class ExtentManager {
 
     private static ExtentReports extent;
 
-    public static ExtentReports getInstance() {
+    public static synchronized ExtentReports getInstance() {
 
         if (extent == null) {
             String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());

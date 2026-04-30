@@ -42,11 +42,19 @@ public class WishlistPage extends BasePage {
     }
 
     public boolean isWishlistEmpty() {
-        return getRows().isEmpty();
+        try {
+            List<WebElement> rows = getRows();
+            if (rows.isEmpty()) return true;
+            waitForInvisibility(rows.get(0));
+            return getRows().isEmpty();
+        } catch (Exception e) {
+            return getRows().isEmpty();
+        }
     }
 
     public boolean isProductPresent(String name) {
-        return getRowByProductName(name) != null;
+        WebElement row = getRowByProductName(name);
+        return row != null && isDisplayed(row);
     }
 
     //ACTIONS

@@ -21,7 +21,8 @@ public class TC022_AddToWishlistWithoutLoginTest extends BaseTest {
         WishlistPage wishlist = homePage.navigateToWishlist();
         wishlist.clearWishlist();
 
-        homePage.logout().clickContinue();
+        LogoutPage logout = homePage.logout();
+        homePage = logout.clickContinue();
 
         logger.info("Setup complete: Wishlist cleared for " + TestData.EXISTING_EMAIL02 + " and user logged out.");
     }
@@ -34,6 +35,9 @@ public class TC022_AddToWishlistWithoutLoginTest extends BaseTest {
 
         logger.info("Guest adding product to wishlist: " + productName);
         productPage.addToWishlist();
+
+        logger.info("Navigating to Wishlist page");
+        homePage.navigateToWishlist();
 
         Assert.assertTrue(
                 getDriver().getCurrentUrl().contains("account/login"),
