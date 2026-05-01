@@ -39,6 +39,12 @@ public class HomePage extends BasePage {
     @FindBy(linkText = "View Cart")
     private WebElement viewCartOption;
 
+    @FindBy(xpath = "//a[@title='Shopping Cart']")
+    private WebElement shoppingCartHeaderLink;
+
+    @FindBy(xpath = "//a[@title='Checkout']")
+    private WebElement checkoutHeaderLink;
+
     // Reusable method
     private void openMyAccountDropdown() {
         click(myAccountDropdown);
@@ -70,21 +76,15 @@ public class HomePage extends BasePage {
     }
 
     public CartPage navigateToCart() {
-        int attempts = 0;
-        while (attempts < 3) {
-            try {
-                waitForClickable(cartButton);
-                click(cartButton);
-                waitForVisibility(viewCartOption);
-                click(viewCartOption);
-                return new CartPage(driver);
-            } catch (Exception e) {
-                attempts++;
-                if (attempts == 3) throw e;
-                // Optional: small sleep if needed
-            }
-        }
+        waitForVisibility(shoppingCartHeaderLink);
+        click(shoppingCartHeaderLink);
         return new CartPage(driver);
+    }
+
+    public CheckoutPage navigateToCheckout() {
+        waitForVisibility(checkoutHeaderLink);
+        click(checkoutHeaderLink);
+        return new CheckoutPage(driver);
     }
 
     public SearchPage searchProduct(String keyword) {

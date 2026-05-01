@@ -39,36 +39,44 @@ public class CheckoutPage extends BasePage {
     private WebElement termsWarning;
 
     // ACTION METHODS
+    private void waitForStepToLoad(WebElement stepButton) {
+        // First wait for the element to be present/visible
+        waitForVisibility(stepButton);
+        // Then add a small buffer for the accordion slide animation
+        try { Thread.sleep(500); } catch (InterruptedException ignored) {}
+        waitForClickable(stepButton);
+    }
+
     public void continueBillingDetails() {
-        waitForVisibility(billingContinueBtn);
+        waitForStepToLoad(billingContinueBtn);
         click(billingContinueBtn);
     }
 
     public void continueDeliveryDetails() {
-        waitForVisibility(deliveryContinueBtn);
+        waitForStepToLoad(deliveryContinueBtn);
         click(deliveryContinueBtn);
     }
 
     public void continueDeliveryMethod(String comment) {
+        waitForStepToLoad(deliveryMethodContinueBtn);
         if (comment != null && !comment.isEmpty()) {
             waitForVisibility(deliveryCommentBox);
             type(deliveryCommentBox, comment);
         }
-        waitForVisibility(deliveryMethodContinueBtn);
         click(deliveryMethodContinueBtn);
     }
 
     // This method is for the HAPPY PATH (Accepting terms)
     public void continuePaymentMethod() {
-        waitForVisibility(termsCheckbox);
+        waitForStepToLoad(paymentMethodContinueBtn);
+        waitForClickable(termsCheckbox);
         click(termsCheckbox);
-        waitForVisibility(paymentMethodContinueBtn);
         click(paymentMethodContinueBtn);
     }
 
     // NEW: Specifically for TC033 (Negative Path - No Terms)
     public void clickPaymentMethodContinueWithoutTerms() {
-        waitForVisibility(paymentMethodContinueBtn);
+        waitForStepToLoad(paymentMethodContinueBtn);
         click(paymentMethodContinueBtn);
     }
 
