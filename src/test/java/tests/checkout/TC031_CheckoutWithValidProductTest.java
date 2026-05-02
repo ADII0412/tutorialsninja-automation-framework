@@ -14,6 +14,8 @@ public class TC031_CheckoutWithValidProductTest extends BaseTest {
 
         LoginPage loginPage = homePage.navigateToLogin();
         loginPage.login(TestData.EXISTING_EMAIL03, TestData.PASSWORD);
+        // Recreate page object after navigation to avoid stale header elements
+        homePage = new HomePage(getDriver());
 
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_FOR_CHECKOUT);
         ProductPage productPage = searchPage.openProduct();
@@ -24,6 +26,7 @@ public class TC031_CheckoutWithValidProductTest extends BaseTest {
                 "Product was not added to cart"
         );
 
+        homePage = new HomePage(getDriver());
         CartPage cartPage = homePage.navigateToCart();
         CheckoutPage checkoutPage = cartPage.proceedToCheckout();
 

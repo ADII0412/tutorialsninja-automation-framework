@@ -15,11 +15,15 @@ public class TC033_CheckoutWithoutAgreeingTermsTest extends BaseTest {
         HomePage homePage = new HomePage(getDriver());
         LoginPage loginPage = homePage.navigateToLogin();
         loginPage.login(TestData.EXISTING_EMAIL03, TestData.PASSWORD);
+        // Recreate page object after login redirect to prevent stale references
+        homePage = new HomePage(getDriver());
 
         CartPage cart = homePage.navigateToCart();
         cart.clearCart();
 
+        homePage = new HomePage(getDriver());
         homePage.searchProduct(TestData.PRODUCT_FOR_CHECKOUT).openProduct().addToCart();
+        homePage = new HomePage(getDriver());
         this.checkoutPage = homePage.navigateToCart().proceedToCheckout();
 
         logger.info("Setup: Logged in and reached checkout with " + TestData.PRODUCT_FOR_CHECKOUT);

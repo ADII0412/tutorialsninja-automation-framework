@@ -14,6 +14,9 @@ public class TC025_AddSameItemMultipleTimesTest extends BaseTest {
     @Test(description = "Verify quantity increases when same product is added multiple times")
     public void verifyAddSameItemMultipleTimes() {
         HomePage homePage = new HomePage(getDriver());
+        // Start from a clean cart to make quantity assertion deterministic
+        homePage.navigateToCart().clearCart();
+        homePage = new HomePage(getDriver());
 
         logger.info("Searching product: " + TestData.PRODUCT_NAME);
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);
@@ -40,6 +43,7 @@ public class TC025_AddSameItemMultipleTimesTest extends BaseTest {
         String quantity = cartPage.getProductQuantity(productName);
 
         logger.info("Validating product quantity");
+        Assert.assertNotNull(quantity, "Product was not found in cart: " + productName);
 
         Assert.assertEquals(
                 Integer.parseInt(quantity),
