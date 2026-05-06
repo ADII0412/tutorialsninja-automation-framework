@@ -1,19 +1,19 @@
 # 🧪 TutorialsNinja Automation Framework
-
+ 
 A robust end-to-end automation framework built using **Selenium WebDriver**, **Java**, and **TestNG** for the [TutorialsNinja](https://tutorialsninja.com/demo/) demo e-commerce application. This project demonstrates real-world QA automation practices including scalable framework design, reusable components, CI/CD integration, API testing, and comprehensive test coverage across critical user flows.
  
 ---
-
+ 
 ## 🚀 Project Overview
-
+ 
 This framework is designed using the **Page Object Model (POM)** to ensure maintainability, readability, and reusability of test code. It automates key e-commerce functionalities such as user registration, login, product search, wishlist management, cart operations, product comparison, and checkout flow — alongside REST API validation using REST Assured.
-
+ 
 The framework integrates **Extent Reports** for detailed HTML execution reports, supports **parallel test execution** via TestNG, runs inside **Docker** for environment consistency, and is wired to a **Jenkins CI/CD pipeline** for automated build and test execution.
  
 ---
-
+ 
 ## 🧱 Framework Architecture
-
+ 
 - **Page Object Model (POM)** design pattern
 - Separate layers for Test Cases, Page Objects, Utilities, Listeners, and Base setup
 - Centralized, thread-safe `WebDriver` initialization via `DriverFactory` using `ThreadLocal`
@@ -25,9 +25,9 @@ The framework integrates **Extent Reports** for detailed HTML execution reports,
 - Listener-based Extent Report integration with automatic screenshot capture on failure
 - Automatic test retry via `IRetryAnalyzer` (max 2 retries) wired through `IAnnotationTransformer`
 ---
-
+ 
 ## 🗂️ Project Structure
-
+ 
 ```
 src
 ├── main/java
@@ -79,9 +79,9 @@ src
 ```
  
 ---
-
+ 
 ## 🔄 Test Coverage
-
+ 
 | # | Module | Test Cases | Key Scenarios |
 |---|---|---|---|
 | 1 | Registration | TC001–TC005 | Mandatory fields, duplicate email, privacy policy, password mismatch, **data-driven via Excel** |
@@ -93,13 +93,13 @@ src
 | 7 | Checkout | TC032–TC034 | Full checkout flow, empty cart validation, terms enforcement |
 | 8 | Compare | TC035–TC037 | Add/remove single and multiple products to comparison |
 | 9 | API | TC038 | GET, POST, and negative (404) tests against REST API |
-
+ 
 **Total: 38 automated test cases**
  
 ---
-
+ 
 ## ⚡ Key Capabilities
-
+ 
 - **Thread-safe parallel execution** — `ThreadLocal<WebDriver>` in `DriverFactory` ensures each thread gets an isolated browser instance
 - **Parallel TestNG suite** — `testng-parallel.xml` runs 4 test groups simultaneously with safe thread grouping
 - **Cross-browser support** — Chrome, Firefox, and Edge configurable via `config.properties` or `-Dbrowser` flag
@@ -114,9 +114,9 @@ src
 - **Extent Reports** — HTML reports with step-level logging and failure screenshots via `TestListener`
 - **Log4j2 logging** — structured logging across all framework layers
 ---
-
+ 
 ## 🛠️ Tech Stack
-
+ 
 | Tool | Purpose |
 |---|---|
 | Java 21 | Primary language |
@@ -133,9 +133,9 @@ src
 | Git & GitHub | Version control |
  
 ---
-
+ 
 ## ⚙️ How to Run
-
+ 
 ### Prerequisites
 - Java 21+
 - Maven 3.9+
@@ -162,7 +162,7 @@ mvn clean test -Denv=staging
 # Run parallel suite
 mvn clean test -DsuiteXmlFile=testng-parallel.xml
 ```
-
+ 
 ### Run with Docker
 ```bash
 # Build the image
@@ -174,7 +174,7 @@ docker run tutorialsninja-automation
 # Override browser or environment
 docker run -e BROWSER=firefox tutorialsninja-automation
 ```
-
+ 
 ### Run via Jenkins
 1. Create a new Pipeline job in Jenkins
 2. Point it to this repository
@@ -182,17 +182,17 @@ docker run -e BROWSER=firefox tutorialsninja-automation
 4. Use the `RUN_IN_DOCKER`, `BROWSER`, and `BASE_URL` parameters to configure the run
 5. Extent Reports and screenshots are archived as build artifacts after each run
 ---
-
+ 
 ## 📊 Reporting
-
+ 
 After each test run, an **Extent HTML report** is generated in the `reports/` directory containing:
 - Test-level pass/fail status
 - Step-by-step execution log
 - Failure screenshots embedded in the report
 - Thread-level reporting for parallel runs
 ---
-
+ 
 ## 📌 Author
-
+ 
 **Aditya Singh** — QA Automation Engineer
 [GitHub](https://github.com/ADII0412) | [LinkedIn](https://www.linkedin.com/in/adii0412/)
