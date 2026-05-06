@@ -8,7 +8,7 @@ import pages.SearchPage;
 import utils.TestData;
 
 public class TC012_SearchWithDescriptionEnabledTest extends BaseTest {
-    @Test(description = "Verify search works when description option is enabled")
+    @Test(groups = {"regression"}, description = "Verify search works when description option is enabled")
     public void verifySearchWithProductDescriptionEnabled() {
         HomePage homePage = new HomePage(getDriver());
         SearchPage searchPage = homePage.searchProduct(TestData.DESCRIPTION_PRODUCT);

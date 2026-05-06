@@ -8,7 +8,7 @@ import utils.TestData;
 
 public class TC037_RemoveProductFromCompareTest extends BaseTest {
 
-    @Test(description = "Verify user can remove product from compare list")
+    @Test(groups = {"regression"}, description = "Verify user can remove product from compare list")
     public void verifyRemoveProductFromCompare() {
         HomePage homePage = new HomePage(getDriver());
 

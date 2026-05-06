@@ -11,7 +11,7 @@ import utils.TestData;
 
 public class TC026_AddSameItemMultipleTimesTest extends BaseTest {
 
-    @Test(description = "Verify quantity increases when same product is added multiple times")
+    @Test(groups = {"regression", "sanity"}, description = "Verify quantity increases when same product is added multiple times")
     public void verifyAddSameItemMultipleTimes() {
         HomePage homePage = new HomePage(getDriver());
         // Start from a clean cart to make quantity assertion deterministic

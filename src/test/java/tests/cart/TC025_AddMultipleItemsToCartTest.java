@@ -8,7 +8,7 @@ import utils.TestData;
 
 public class TC025_AddMultipleItemsToCartTest extends BaseTest {
 
-    @Test(description = "Verify user can add multiple distinct products to cart")
+    @Test(groups = {"regression", "critical"}, description = "Verify user can add multiple distinct products to cart")
     public void verifyAddMultipleItemsToCart() {
         HomePage homePage = new HomePage(getDriver());
         HeaderComponent header = new HeaderComponent(getDriver());

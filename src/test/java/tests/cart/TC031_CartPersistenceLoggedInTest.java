@@ -30,7 +30,7 @@ public class TC031_CartPersistenceLoggedInTest extends BaseTest {
         logger.info("Setup complete: Cart cleared and '" + productName + "' added for persistence test.");
     }
 
-    @Test(description = "Verify cart contents persist across different sessions for the same user")
+    @Test(groups = {"regression", "critical", "e2e"}, description = "Verify cart contents persist across different sessions for the same user")
     public void verifyCartPersistenceAfterLogin() {
         LogoutPage logoutPage = homePage.logout();
         homePage = logoutPage.clickContinue();

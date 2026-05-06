@@ -19,7 +19,7 @@ public class TC005_DataDriven_RegistrationTest extends BaseTest {
         return ExcelUtil.getTestData(filePath, "RegistrationTests");
     }
 
-    @Test(dataProvider = "registrationData", description = "Verify registration scenarios using Excel data")
+    @Test(groups = {"regression"}, dataProvider = "registrationData", description = "Verify registration scenarios using Excel data")
     public void verifyRegistrationUsingExcelData(
             String firstName,
             String lastName,

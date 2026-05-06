@@ -27,7 +27,7 @@ public class TC020_RemoveProductFromWishlistTest extends BaseTest {
         logger.info("Setup complete: Logged in and product '" + productName + "' added to wishlist.");
     }
 
-    @Test(description = "Verify user can remove a product from wishlist successfully")
+    @Test(groups = {"regression"}, description = "Verify user can remove a product from wishlist successfully")
     public void verifyRemoveProductFromWishlist() {
         WishlistPage wishlistPage = homePage.navigateToWishlist();
 

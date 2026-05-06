@@ -10,7 +10,7 @@ import pages.SearchPage;
 import utils.TestData;
 
 public class TC028_RemoveItemFromCartTest extends BaseTest {
-    @Test(description = "Verify user can remove item from cart successfully")
+    @Test(groups = {"regression", "negative"}, description = "Verify user can remove item from cart successfully")
     public void verifyRemoveItemFromCart() {
         HomePage homePage = new HomePage(getDriver());
 

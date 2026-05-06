@@ -9,7 +9,7 @@ import utils.TestData;
 
 public class TC010_SearchUsingCategoryFilterTest extends BaseTest {
 
-    @Test(description = "Verify search works with category and subcategory filters")
+    @Test(groups = {"regression", "sanity"}, description = "Verify search works with category and subcategory filters")
     public void verifySearchUsingCategoryFilter() {
         HomePage homePage = new HomePage(getDriver());
         SearchPage searchPage = homePage.searchProduct(TestData.CATEGORY_PRODUCT);

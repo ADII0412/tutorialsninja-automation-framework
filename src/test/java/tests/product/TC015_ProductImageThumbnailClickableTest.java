@@ -9,7 +9,7 @@ import pages.SearchPage;
 import utils.TestData;
 
 public class TC015_ProductImageThumbnailClickableTest extends BaseTest {
-    @Test(description = "Verify product image thumbnails are clickable and trigger a lightbox display")
+    @Test(groups = {"regression"}, description = "Verify product image thumbnails are clickable and trigger a lightbox display")
     public void verifyImageThumbnailsAreClickable() {
         HomePage homePage = new HomePage(getDriver());
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);

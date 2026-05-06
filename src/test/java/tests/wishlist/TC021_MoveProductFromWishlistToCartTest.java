@@ -29,7 +29,7 @@ public class TC021_MoveProductFromWishlistToCartTest extends BaseTest {
         logger.info("Setup: Logged in and '" + productName + "' added to wishlist.");
     }
 
-    @Test(description = "Verify product can be moved from wishlist to cart successfully")
+    @Test(groups = {"regression", "e2e"}, description = "Verify product can be moved from wishlist to cart successfully")
     public void verifyMoveProductFromWishlistToCart(){
         WishlistPage wishlistPage = homePage.navigateToWishlist();
 

@@ -9,7 +9,7 @@ import utils.TestData;
 
 public class TC011_SearchWithPartialKeywordTest extends BaseTest {
 
-    @Test(description = "Verify search works with partial keyword")
+    @Test(groups = {"regression"}, description = "Verify search works with partial keyword")
     public void verifySearchWithPartialKeywordWorks() {
         HomePage homePage = new HomePage(getDriver());
         SearchPage searchPage = homePage.searchProduct(TestData.PARTIAL_PRODUCT);

@@ -9,7 +9,7 @@ import pages.SearchPage;
 import utils.TestData;
 
 public class TC016_ProductReviewSubmissionTest extends BaseTest {
-    @Test(description = "Verify user can submit a product review successfully")
+    @Test(groups = {"regression"}, description = "Verify user can submit a product review successfully")
     public void verifyProductReviewSubmission() {
         HomePage homePage = new HomePage(getDriver());
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);

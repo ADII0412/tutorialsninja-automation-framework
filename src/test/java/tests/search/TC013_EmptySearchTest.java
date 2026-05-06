@@ -7,7 +7,7 @@ import pages.HomePage;
 import pages.SearchPage;
 
 public class TC013_EmptySearchTest extends BaseTest {
-    @Test(description = "Verify system handles blank search input gracefully")
+    @Test(groups = {"regression", "negative"}, description = "Verify system handles blank search input gracefully")
     public void verifyEmptySearch() {
         HomePage homePage = new HomePage(getDriver());
 

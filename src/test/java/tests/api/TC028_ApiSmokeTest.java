@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.emptyString;
 
 public class TC028_ApiSmokeTest extends BaseAPI {
 
-    @Test(description = "Verify posts list API returns posts")
+    @Test(groups = {"regression", "smoke", "sanity", "api"}, description = "Verify posts list API returns posts")
     public void verifyGetPostsReturnsNonEmptyList() {
         given()
                 .spec(requestSpec)
@@ -25,7 +25,7 @@ public class TC028_ApiSmokeTest extends BaseAPI {
                 .body("size()", not(equalTo(0)));
     }
 
-    @Test(description = "Verify single post API contains userId")
+    @Test(groups = {"regression", "smoke", "sanity", "api"}, description = "Verify single post API contains userId")
     public void verifyGetPostByIdContainsUserId() {
         given()
                 .spec(requestSpec)
@@ -36,7 +36,7 @@ public class TC028_ApiSmokeTest extends BaseAPI {
                 .body("$", hasKey("userId"));
     }
 
-    @Test(description = "Verify create post API returns created post")
+    @Test(groups = {"regression", "smoke", "sanity", "api"}, description = "Verify create post API returns created post")
     public void verifyCreatePostReturnsSentTitle() {
         Map<String, Object> payload = new HashMap<>();
         payload.put("title", "automation smoke title");
@@ -53,7 +53,7 @@ public class TC028_ApiSmokeTest extends BaseAPI {
                 .body("title", equalTo(payload.get("title")));
     }
 
-    @Test(description = "Verify missing post returns 404")
+    @Test(groups = {"regression", "smoke", "sanity", "api"}, description = "Verify missing post returns 404")
     public void verifyMissingPostReturnsNotFound() {
         given()
                 .spec(requestSpec)
@@ -63,7 +63,7 @@ public class TC028_ApiSmokeTest extends BaseAPI {
                 .statusCode(404);
     }
 
-    @Test(description = "Verify user API returns non-empty email")
+    @Test(groups = {"regression", "smoke", "sanity", "api"}, description = "Verify user API returns non-empty email")
     public void verifyGetUserByIdContainsEmail() {
         given()
                 .spec(requestSpec)

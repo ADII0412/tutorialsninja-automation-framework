@@ -8,7 +8,7 @@ import pages.HomePage;
 import pages.LoginPage;
 
 public class TC006_ForgotPasswordNavigationTest extends BaseTest {
-    @Test(description = "Verify user can navigate to Forgot Password page from Login page")
+    @Test(groups = {"regression", "smoke", "sanity", "critical"}, description = "Verify user can navigate to Forgot Password page from Login page")
     public void verifyForgotPasswordNavigation() {
         HomePage homePage = new HomePage(getDriver());
         LoginPage loginPage = homePage.navigateToLogin();

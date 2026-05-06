@@ -7,7 +7,7 @@ import pages.HomePage;
 import pages.RegisterPage;
 
 public class TC004_RegistrationPasswordMismatchTest extends BaseTest {
-    @Test(description = "Verify error message when password and confirm password do not match")
+    @Test(groups = {"regression", "negative"}, description = "Verify error message when password and confirm password do not match")
     public void verifyPasswordMismatchError() {
         HomePage homePage = new HomePage(getDriver());
         RegisterPage registerPage = homePage.navigateToRegister();

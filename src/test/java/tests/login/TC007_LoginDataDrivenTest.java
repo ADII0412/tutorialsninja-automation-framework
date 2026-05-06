@@ -10,6 +10,7 @@ import utils.LoginDataLib;
 public class TC007_LoginDataDrivenTest extends BaseTest {
 
     @Test(
+            groups = {"regression"},
             dataProvider = "loginScenarios",
             dataProviderClass = LoginDataLib.class,
             description = "Verify login functionality with valid, invalid, and security scenarios"

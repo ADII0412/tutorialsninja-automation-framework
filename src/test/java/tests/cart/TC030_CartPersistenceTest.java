@@ -11,7 +11,7 @@ import utils.TestData;
 
 public class TC030_CartPersistenceTest extends BaseTest {
 
-    @Test(description = "Verify cart retains items after page refresh")
+    @Test(groups = {"regression", "e2e"}, description = "Verify cart retains items after page refresh")
     public void verifyCartPersistence() {
         HomePage homePage = new HomePage(getDriver());
 

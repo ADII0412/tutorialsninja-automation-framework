@@ -8,7 +8,7 @@ import pages.HomePage;
 
 public class TC033_CheckoutWithoutProductTest extends BaseTest {
 
-    @Test(description = "Verify user cannot proceed to checkout with empty cart")
+    @Test(groups = {"regression", "negative"}, description = "Verify user cannot proceed to checkout with empty cart")
     public void verifyCheckoutWithoutProduct() {
         HomePage homePage = new HomePage(getDriver());
 

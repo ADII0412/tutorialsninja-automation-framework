@@ -8,7 +8,7 @@ import utils.TestData;
 
 public class TC035_AddProductToCompareTest extends BaseTest {
 
-    @Test(description = "Verify user can add a product to compare list")
+    @Test(groups = {"regression", "sanity"}, description = "Verify user can add a product to compare list")
     public void verifyAddProductToCompare() {
         HomePage homePage = new HomePage(getDriver());
 

@@ -9,7 +9,7 @@ import utils.TestData;
 
 public class TC009_SearchNonExistingProductTest extends BaseTest {
 
-    @Test(description = "Verify no results message is shown for non-existing product search")
+    @Test(groups = {"regression", "negative"}, description = "Verify no results message is shown for non-existing product search")
     public void verifySearchWithNonExistingProductShowsNoResult() {
         HomePage homePage = new HomePage(getDriver());
         SearchPage searchPage = homePage.searchProduct(TestData.INVALID_PRODUCT);

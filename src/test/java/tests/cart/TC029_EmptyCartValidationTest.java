@@ -10,7 +10,7 @@ import pages.SearchPage;
 import utils.TestData;
 
 public class TC029_EmptyCartValidationTest extends BaseTest {
-    @Test(description = "Verify cart is empty after removing all items")
+    @Test(groups = {"regression"}, description = "Verify cart is empty after removing all items")
     public void verifyEmptyCartValidation() {
         HomePage homePage = new HomePage(getDriver());
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);

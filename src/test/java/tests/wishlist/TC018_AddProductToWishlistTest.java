@@ -22,7 +22,7 @@ public class TC018_AddProductToWishlistTest extends BaseTest {
         wishlist.clearWishlist();
     }
 
-    @Test(description = "Verify user can add product to wishlist successfully")
+    @Test(groups = {"regression", "sanity"}, description = "Verify user can add product to wishlist successfully")
     public void verifyAddProductToWishlist() {
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);
         productPage = searchPage.openProduct();

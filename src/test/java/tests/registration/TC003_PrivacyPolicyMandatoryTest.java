@@ -9,7 +9,7 @@ import utils.TestData;
 
 public class TC003_PrivacyPolicyMandatoryTest extends BaseTest {
 
-    @Test(description = "Verify privacy policy checkbox is mandatory during registration")
+    @Test(groups = {"regression", "negative"}, description = "Verify privacy policy checkbox is mandatory during registration")
     public void verifyPrivacyPolicyCheckboxMandatory() {
         HomePage homePage = new HomePage(getDriver());
         RegisterPage registerPage = homePage.navigateToRegister();

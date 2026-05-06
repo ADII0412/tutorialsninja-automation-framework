@@ -8,7 +8,7 @@ import utils.TestData;
 
 public class TC032_CheckoutWithValidProductTest extends BaseTest {
 
-    @Test(description = "Verify user can successfully place an order")
+    @Test(groups = {"regression", "smoke", "sanity", "critical"}, description = "Verify user can successfully place an order")
     public void verifyCheckoutWithValidProduct() {
         HomePage homePage = new HomePage(getDriver());
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TC036_AddMultipleProductsToCompareTest extends BaseTest {
 
-    @Test(description = "Verify user can add multiple products to compare list")
+    @Test(groups = {"regression"}, description = "Verify user can add multiple products to compare list")
     public void verifyAddMultipleProductsToCompare() {
         HomePage homePage = new HomePage(getDriver());
 

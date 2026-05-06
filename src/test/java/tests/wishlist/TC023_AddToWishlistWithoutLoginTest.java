@@ -27,7 +27,7 @@ public class TC023_AddToWishlistWithoutLoginTest extends BaseTest {
         logger.info("Setup complete: Wishlist cleared for " + TestData.EXISTING_EMAIL02 + " and user logged out.");
     }
 
-    @Test(description = "Verify guest user is redirected to login and product persists in wishlist")
+    @Test(groups = {"regression", "e2e"}, description = "Verify guest user is redirected to login and product persists in wishlist")
     public void verifyAddToWishlistWithoutLoginRedirectAndPersistence() {
         SearchPage searchPage = homePage.searchProduct(TestData.PRODUCT_NAME);
         ProductPage productPage = searchPage.openProduct();

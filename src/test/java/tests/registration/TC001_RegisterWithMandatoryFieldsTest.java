@@ -9,7 +9,7 @@ import pages.RegisterPage;
 import utils.TestData;
 
 public class TC001_RegisterWithMandatoryFieldsTest extends BaseTest {
-    @Test(description = "Verify user can register with mandatory fields")
+    @Test(groups = {"regression", "smoke", "sanity"}, description = "Verify user can register with mandatory fields")
     public void verifyRegisterWithMandatoryFields() {
         HomePage homePage = new HomePage(getDriver());
         RegisterPage registerPage = homePage.navigateToRegister();

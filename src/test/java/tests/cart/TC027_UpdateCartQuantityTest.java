@@ -10,7 +10,7 @@ import pages.SearchPage;
 import utils.TestData;
 
 public class TC027_UpdateCartQuantityTest extends BaseTest {
-    @Test(description = "Verify user can update product quantity in cart")
+    @Test(groups = {"regression", "critical"}, description = "Verify user can update product quantity in cart")
     public void verifyUpdateCartQuantity() {
         HomePage homePage = new HomePage(getDriver());
 

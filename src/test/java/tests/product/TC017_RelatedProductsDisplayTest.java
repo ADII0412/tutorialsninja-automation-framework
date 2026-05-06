@@ -9,7 +9,7 @@ import pages.SearchPage;
 import utils.TestData;
 
 public class TC017_RelatedProductsDisplayTest extends BaseTest {
-    @Test(description = "Verify related products are displayed on product page")
+    @Test(groups = {"regression"}, description = "Verify related products are displayed on product page")
     public void verifyRelatedProductsDisplayCorrectly() {
 
         logger.info("Starting TC016: Related Products Display Test");

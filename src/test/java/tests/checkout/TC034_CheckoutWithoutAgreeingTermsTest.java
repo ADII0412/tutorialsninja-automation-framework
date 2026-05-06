@@ -29,7 +29,7 @@ public class TC034_CheckoutWithoutAgreeingTermsTest extends BaseTest {
         logger.info("Setup: Logged in and reached checkout with " + TestData.PRODUCT_FOR_CHECKOUT);
     }
 
-    @Test(description = "Verify warning when terms and conditions are not accepted")
+    @Test(groups = {"regression", "negative"}, description = "Verify warning when terms and conditions are not accepted")
     public void verifyCheckoutWithoutTerms() {
         logger.info("Navigating through billing and delivery details...");
         checkoutPage.continueBillingDetails();

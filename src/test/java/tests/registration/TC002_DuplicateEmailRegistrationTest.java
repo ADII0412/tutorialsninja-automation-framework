@@ -8,7 +8,7 @@ import pages.RegisterPage;
 import utils.TestData;
 
 public class TC002_DuplicateEmailRegistrationTest extends BaseTest {
-    @Test(description = "Verify warning is shown when registering with existing email")
+    @Test(groups = {"regression", "negative"}, description = "Verify warning is shown when registering with existing email")
     public void verifyDuplicateEmailRegistrationShowsWarning() {
         HomePage homePage = new HomePage(getDriver());
         RegisterPage registerPage = homePage.navigateToRegister();

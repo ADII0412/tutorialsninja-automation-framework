@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TC019_AddMultipleProductsToWishlistTest extends BaseTest {
-    @Test(description = "Verify user can add multiple products to wishlist")
+    @Test(groups = {"regression"}, description = "Verify user can add multiple products to wishlist")
     public void verifyAddMultipleProductsToWishlist() {
         HomePage homePage = new HomePage(getDriver());
         LoginPage loginPage = homePage.navigateToLogin();

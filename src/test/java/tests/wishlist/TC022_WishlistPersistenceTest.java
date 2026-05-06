@@ -7,7 +7,7 @@ import pages.*;
 import utils.TestData;
 
 public class TC022_WishlistPersistenceTest extends BaseTest {
-    @Test(description = "Verify wishlist persists after logout and login")
+    @Test(groups = {"regression", "e2e"}, description = "Verify wishlist persists after logout and login")
     public void verifyWishlistPersistenceAfterLogoutAndLogin() {
         HomePage homePage = new HomePage(getDriver());
         LoginPage loginPage = homePage.navigateToLogin();

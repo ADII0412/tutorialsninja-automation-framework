@@ -9,7 +9,7 @@ import utils.TestData;
 
 public class TC008_SearchMatchingProductTest extends BaseTest {
 
-    @Test(description = "Verify search results match the search keyword")
+    @Test(groups = {"regression", "smoke", "sanity"}, description = "Verify search results match the search keyword")
     public void verifySearchReturnsMatchingProduct() {
         HomePage homePage = new HomePage(getDriver());
 
