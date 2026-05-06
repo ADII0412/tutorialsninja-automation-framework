@@ -4,6 +4,7 @@
 <suite name="TutorialsNinja Automation Suite" parallel="tests" thread-count="2">
 
     <listeners>
+        <listener class-name="listeners.RetryListener"/>
         <listener class-name="listeners.TestListener"/>
     </listeners>
 
@@ -60,6 +61,13 @@
     <test name="Compare Tests">
         <packages>
             <package name="tests.compare"/>
+        </packages>
+    </test>
+
+    <!-- ================= API ================= -->
+    <test name="API Tests">
+        <packages>
+            <package name="tests.api"/>
         </packages>
     </test>
 

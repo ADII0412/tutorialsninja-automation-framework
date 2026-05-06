@@ -1,0 +1,11 @@
+target/
+.git/
+.idea/
+*.iml
+test-output/
+reports/
+screenshots/
+.vscode/
+*.log
+Thumbs.db
+.DS_Store

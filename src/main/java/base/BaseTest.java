@@ -17,12 +17,20 @@ public class BaseTest {
 
     public Properties initializeProperties() {
         prop = new Properties();
+        String env = System.getProperty("env", "default").trim().toLowerCase();
+        String configFileName = switch (env) {
+            case "staging" -> "config-staging.properties";
+            case "prod" -> "config-prod.properties";
+            case "default" -> "config.properties";
+            default -> throw new IllegalArgumentException("Unsupported environment: " + env);
+        };
+
         try (FileInputStream fis = new FileInputStream(
-                System.getProperty("user.dir") + "/src/test/resources/config/config.properties"
-        )){
+                System.getProperty("user.dir") + "/src/test/resources/config/" + configFileName
+        )) {
             prop.load(fis);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to load config.properties", e);
+            throw new RuntimeException("Failed to load " + configFileName, e);
         }
 
         if (System.getProperty("browser") != null)

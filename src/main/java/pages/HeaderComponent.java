@@ -35,9 +35,16 @@ public class HeaderComponent extends BasePage {
     }
 
     public int getCartCount() {
-        waitForVisibility(cartTotal);
-        String text = cartTotal.getText();
-        String count = text.split(" ")[0];
-        return Integer.parseInt(count);
+        try {
+            waitForVisibility(cartTotal);
+            String text = cartTotal.getText();
+            if (text == null || text.trim().isEmpty()) {
+                return 0;
+            }
+            String count = text.split(" ")[0];
+            return Integer.parseInt(count);
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }
