@@ -24,7 +24,8 @@ public class BaseAPI {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         requestSpec = new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
-                .build();
+                .build()
+                .log().ifValidationFails();
     }
 
     protected Properties initializeProperties() {

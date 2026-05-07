@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,23 +19,18 @@ public class ScreenshotUtil {
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String screenshotName = testName + "_" + timestamp + ".png";
 
-        String screenshotPath = System.getProperty("user.dir")
-                + "/screenshots/" + screenshotName;
+        Path screenshotsDir = Paths.get(System.getProperty("user.dir"), "screenshots");
+        Path screenshotPath = screenshotsDir.resolve(screenshotName);
 
         try {
-            // Take screenshot
             File source = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-
-            // Create destination file
-            File destination = new File(screenshotPath);
-
-            // Copy file
-            FileUtils.copyFile(source, destination);
+            FileUtils.forceMkdir(screenshotsDir.toFile());
+            FileUtils.copyFile(source, screenshotPath.toFile());
 
         } catch (IOException e) {
             throw new RuntimeException("Failed to capture screenshot: " + screenshotPath, e);
         }
 
-        return screenshotPath;
+        return "../screenshots/" + screenshotName;
     }
 }

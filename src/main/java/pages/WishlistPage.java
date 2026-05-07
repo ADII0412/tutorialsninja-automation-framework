@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class WishlistPage extends BasePage {
     private By productName = By.xpath(".//td[2]");
     private By removeBtn = By.xpath(".//a[@class='btn btn-danger']");
     private By addToCartBtn = By.xpath(".//button[@data-original-title='Add to Cart']");
+    private By successAlert = By.cssSelector(".alert-success");
 
     //COMMON UTIL
     private List<WebElement> getRows() {
@@ -87,6 +89,14 @@ public class WishlistPage extends BasePage {
         WebElement row = getRowByProductName(name);
         if (row == null) return;
         click(row.findElement(addToCartBtn));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(successAlert));
+
+        WebElement refreshedRow = getRowByProductName(name);
+        if (refreshedRow != null) {
+            int initialSize = getRows().size();
+            click(refreshedRow.findElement(removeBtn));
+            wait.until(d -> getRows().size() < initialSize || getRows().isEmpty());
+        }
     }
 
     public void clearWishlist() {
