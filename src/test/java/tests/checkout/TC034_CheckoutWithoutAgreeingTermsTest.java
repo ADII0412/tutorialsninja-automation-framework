@@ -10,12 +10,12 @@ import utils.TestData;
 public class TC034_CheckoutWithoutAgreeingTermsTest extends BaseTest {
     private CheckoutPage checkoutPage;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setupCartForCheckout() {
         HomePage homePage = new HomePage(getDriver());
         LoginPage loginPage = homePage.navigateToLogin();
         loginPage.login(TestData.EXISTING_EMAIL03, TestData.PASSWORD);
-        // Recreate page object after login redirect to prevent stale references
+
         homePage = new HomePage(getDriver());
 
         CartPage cart = homePage.navigateToCart();

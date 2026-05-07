@@ -2,11 +2,14 @@ package pages;
 
 import base.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.TestData;
 
 import java.time.Duration;
 
@@ -43,6 +46,30 @@ public class CheckoutPage extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'alert-danger')]")
     private WebElement termsWarning;
 
+    @FindBy(id = "input-payment-firstname")
+    private WebElement firstNameField;
+
+    @FindBy(id = "input-payment-lastname")
+    private WebElement lastNameField;
+
+    @FindBy(id = "input-payment-address-1")
+    private WebElement addressField;
+
+    @FindBy(id = "input-payment-city")
+    private WebElement cityField;
+
+    @FindBy(id = "input-payment-postcode")
+    private WebElement postcodeField;
+
+    @FindBy(id = "input-payment-country")
+    private WebElement countryDropdown;
+
+    @FindBy(id = "input-payment-zone")
+    private WebElement regionDropdown;
+
+    @FindBy(css = "input[name='shipping_method']")
+    private WebElement shippingMethodRadio;
+
     private final By billingContinueBy = By.id("button-payment-address");
     private final By deliveryContinueBy = By.id("button-shipping-address");
     private final By deliveryMethodContinueBy = By.id("button-shipping-method");
@@ -71,7 +98,7 @@ public class CheckoutPage extends BasePage {
 
     // ACTION METHODS
     public void continueBillingDetails() {
-        clickIfPresent(billingContinueBy, 12);
+        fillBillingAddress();
     }
 
     public void continueDeliveryDetails() {
@@ -86,8 +113,7 @@ public class CheckoutPage extends BasePage {
         if (comment != null && !comment.isEmpty()) {
             type(deliveryCommentBox, comment);
         }
-        waitForClickable(button);
-        button.click();
+        selectShippingMethod();
     }
 
     public void continuePaymentMethod() {
@@ -104,12 +130,43 @@ public class CheckoutPage extends BasePage {
         paymentContinue.click();
     }
 
+    public void fillBillingAddress() {
+        if (isDisplayed(firstNameField)) {
+            type(firstNameField, TestData.BILLING_FIRSTNAME);
+            type(lastNameField, TestData.BILLING_LASTNAME);
+            type(addressField, TestData.BILLING_ADDRESS);
+            type(cityField, TestData.BILLING_CITY);
+            type(postcodeField, TestData.BILLING_POSTCODE);
+
+            new Select(countryDropdown).selectByVisibleText(TestData.BILLING_COUNTRY);
+            wait.until(d -> {
+                try {
+                    return new Select(regionDropdown).getOptions().stream()
+                            .anyMatch(option -> option.getText().trim().equals(TestData.BILLING_REGION));
+                } catch (StaleElementReferenceException e) {
+                    return false;
+                }
+            });
+            new Select(regionDropdown).selectByVisibleText(TestData.BILLING_REGION);
+        }
+
+        clickIfPresent(billingContinueBy, 12);
+        waitForVisibility(deliveryContinueBtn);
+    }
+
+    public void selectShippingMethod() {
+        waitForClickable(shippingMethodRadio);
+        if (!shippingMethodRadio.isSelected()) {
+            shippingMethodRadio.click();
+        }
+        click(deliveryMethodContinueBtn);
+    }
+
     public void clickPaymentMethodContinueWithoutTerms() {
         clickIfPresent(paymentMethodContinueBy, 12);
     }
 
     public void confirmOrder() {
-        // Step 6: Confirm Order
         waitForVisibility(confirmOrderBtn);
         click(confirmOrderBtn);
     }
@@ -120,11 +177,22 @@ public class CheckoutPage extends BasePage {
     }
 
     public void placeOrder(String comment) {
-        continueBillingDetails();
-        continueDeliveryDetails(); // Handles the potentially skipped Step 3
-        continueDeliveryMethod(comment);
-        continuePaymentMethod();
-        confirmOrder();
+        fillBillingAddress();
+        waitForVisibility(deliveryContinueBtn);
+        click(deliveryContinueBtn);
+
+        waitForVisibility(deliveryMethodContinueBtn);
+        if (comment != null && !comment.isEmpty()) {
+            type(deliveryCommentBox, comment);
+        }
+        selectShippingMethod();
+
+        waitForVisibility(termsCheckbox);
+        click(termsCheckbox);
+        click(paymentMethodContinueBtn);
+
+        waitForVisibility(confirmOrderBtn);
+        click(confirmOrderBtn);
     }
 
     public boolean isOrderPlaced() {

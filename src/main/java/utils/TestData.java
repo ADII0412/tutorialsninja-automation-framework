@@ -32,6 +32,14 @@ public class TestData {
 
     public static final String PRODUCT_FOR_CHECKOUT = "HP LP3065";
 
+    public static final String BILLING_FIRSTNAME  = "Aditya";
+    public static final String BILLING_LASTNAME   = "Singh";
+    public static final String BILLING_ADDRESS    = "123 Test Street";
+    public static final String BILLING_CITY       = "Mumbai";
+    public static final String BILLING_POSTCODE   = "400001";
+    public static final String BILLING_COUNTRY    = "India";
+    public static final String BILLING_REGION     = "Maharashtra";
+
     public static String generateEmail() {
         return "user" + System.currentTimeMillis() + "@mail.com";
     }
