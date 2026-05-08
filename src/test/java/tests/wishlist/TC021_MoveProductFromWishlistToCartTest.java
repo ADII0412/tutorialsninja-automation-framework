@@ -12,9 +12,14 @@ public class TC021_MoveProductFromWishlistToCartTest extends BaseTest {
     private HomePage homePage;
     private String productName;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setupWishlistState() {
         homePage = new HomePage(getDriver());
+
+        if (getDriver() == null) {
+            throw new RuntimeException("Driver initialization failed in BaseTest!");
+        }
+
         LoginPage loginPage = homePage.navigateToLogin();
         loginPage.login(TestData.EXISTING_EMAIL02, TestData.PASSWORD);
 
@@ -31,20 +36,15 @@ public class TC021_MoveProductFromWishlistToCartTest extends BaseTest {
 
     @Test(groups = {"regression", "e2e"}, description = "Verify product can be moved from wishlist to cart successfully")
     public void verifyMoveProductFromWishlistToCart(){
-        WishlistPage wishlistPage = homePage.navigateToWishlist();
+        Assert.assertNotNull(homePage, "HomePage was not initialized in @BeforeMethod!");
 
+        WishlistPage wishlistPage = homePage.navigateToWishlist();
         logger.info("Action: Moving product to cart: " + productName);
         wishlistPage.moveProductToCartByName(productName);
 
-        Assert.assertTrue(
-                wishlistPage.isWishlistEmpty(),
-                "Product should have been removed from wishlist but is still there!"
-        );
+        Assert.assertTrue(wishlistPage.isWishlistEmpty(), "Product should have been removed from wishlist!");
 
         CartPage cartPage = homePage.navigateToCart();
-        Assert.assertTrue(
-                cartPage.isProductPresentInCart(productName),
-                "Product missing from cart after transfer!"
-        );
+        Assert.assertTrue(cartPage.isProductPresentInCart(productName), "Product missing from cart after transfer!");
     }
 }

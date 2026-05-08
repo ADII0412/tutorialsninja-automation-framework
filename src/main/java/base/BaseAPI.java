@@ -21,11 +21,12 @@ public class BaseAPI {
     public void setupApi() {
         prop = initializeProperties();
         RestAssured.baseURI = prop.getProperty("apiBaseUrl");
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+        String myKey = prop.getProperty("apiKey");
+
         requestSpec = new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
-                .build()
-                .log().ifValidationFails();
+                .addHeader("x-api-key", myKey)
+                .build();
     }
 
     protected Properties initializeProperties() {
