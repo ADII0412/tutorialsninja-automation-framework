@@ -43,7 +43,6 @@ pipeline {
 
                     if (params.RUN_IN_DOCKER) {
                         def tag = "tutorials-ninja-tests:${env.BUILD_NUMBER}"
-                        /* Override ENTRYPOINT so we can pass -Dbrowser / -DbaseUrl; Dockerfile uses ENTRYPOINT ["mvn","test","-Dheadless=true"]. */
                         if (isUnix()) {
                             sh 'mkdir -p reports screenshots'
                             sh "docker build -t ${tag} ."
@@ -51,6 +50,7 @@ pipeline {
                             docker run --rm --entrypoint mvn \
                               -v "${env.WORKSPACE}/reports:/app/reports" \
                               -v "${env.WORKSPACE}/screenshots:/app/screenshots" \
+                              -v "${env.WORKSPACE}/target:/app/target"
                               -w /app ${tag} \
                               clean test ${mvnArgs}
                             """.trim()
