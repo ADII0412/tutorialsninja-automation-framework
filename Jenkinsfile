@@ -50,7 +50,7 @@ pipeline {
                             docker run --rm --entrypoint mvn \
                               -v "${env.WORKSPACE}/reports:/app/reports" \
                               -v "${env.WORKSPACE}/screenshots:/app/screenshots" \
-                              -v "${env.WORKSPACE}/target:/app/target"
+                              -v "${env.WORKSPACE}/target:/app/target" \
                               -w /app ${tag} \
                               clean test ${mvnArgs}
                             """.trim()
