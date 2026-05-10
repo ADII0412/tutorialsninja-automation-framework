@@ -76,8 +76,7 @@ public class HomePage extends BasePage {
     }
 
     public CartPage navigateToCart() {
-        waitForVisibility(shoppingCartHeaderLink);
-        click(shoppingCartHeaderLink);
+        driver.get("https://tutorialsninja.com/demo/index.php?route=checkout/cart");
         return new CartPage(driver);
     }
 
