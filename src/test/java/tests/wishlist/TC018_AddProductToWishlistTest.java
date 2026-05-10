@@ -11,7 +11,7 @@ public class TC018_AddProductToWishlistTest extends BaseTest {
     private HomePage homePage;
     private ProductPage productPage;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setupWishlistState() {
         homePage = new HomePage(getDriver());
         LoginPage loginPage = homePage.navigateToLogin();

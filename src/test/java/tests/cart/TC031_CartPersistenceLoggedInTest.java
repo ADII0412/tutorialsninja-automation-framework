@@ -12,7 +12,7 @@ public class TC031_CartPersistenceLoggedInTest extends BaseTest {
     private HomePage homePage;
     private String productName;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setupCartState() {
         homePage = new HomePage(getDriver());
 

@@ -65,4 +65,4 @@ RUN mkdir -p reports screenshots
 # Set the entry point to run tests
 # -Dheadless=true is passed to ensure tests run without a GUI
 ENTRYPOINT ["mvn"]
-CMD ["clean", "test", "-Dheadless=true"]
+CMD ["test", "-Dheadless=true"]

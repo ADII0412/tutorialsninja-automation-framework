@@ -36,12 +36,24 @@ public class DriverFactory {
                     chromeOptions.addArguments("--headless=new");
                 }
 
-                chromeOptions.addArguments("--start-maximized");
+                // Window size replaces --start-maximized (doesn't work headless)
+                chromeOptions.addArguments("--window-size=1920,1080");
                 chromeOptions.addArguments("--disable-notifications");
                 chromeOptions.addArguments("--remote-allow-origins=*");
                 chromeOptions.addArguments("--disable-gpu");
                 chromeOptions.addArguments("--no-sandbox");
                 chromeOptions.addArguments("--disable-dev-shm-usage");
+
+                // Critical flags for Docker/WSL2 stability
+                chromeOptions.addArguments("--disable-setuid-sandbox");
+                chromeOptions.addArguments("--disable-extensions");
+                chromeOptions.addArguments("--disable-software-rasterizer");
+                chromeOptions.addArguments("--disable-background-timer-throttling");
+                chromeOptions.addArguments("--disable-backgrounding-occluded-windows");
+                chromeOptions.addArguments("--disable-renderer-backgrounding");
+                chromeOptions.addArguments("--disable-features=TranslateUI");
+                chromeOptions.addArguments("--no-first-run");
+                chromeOptions.addArguments("--no-zygote");
 
                 tlDriver.set(new ChromeDriver(chromeOptions));
                 break;

@@ -12,7 +12,7 @@ public class TC020_RemoveProductFromWishlistTest extends BaseTest {
     private HomePage homePage;
     private String productName;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setupWishlistWithProduct() {
         homePage = new HomePage(getDriver());
         LoginPage loginPage = homePage.navigateToLogin();
