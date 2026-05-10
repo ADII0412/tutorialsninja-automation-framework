@@ -52,7 +52,7 @@ pipeline {
                               -v "${env.WORKSPACE}/screenshots:/app/screenshots" \
                               -v "${env.WORKSPACE}/target:/app/target" \
                               -w /app ${tag} \
-                              clean test ${mvnArgs}
+                              test ${mvnArgs}
                             """.trim()
                         } else {
                             bat 'if not exist reports mkdir reports'
