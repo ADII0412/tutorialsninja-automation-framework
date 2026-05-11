@@ -94,7 +94,7 @@ src
 | 8 | Compare | TC035–TC037 | Add/remove single and multiple products to comparison |
 | 9 | API | TC038 | GET, POST, and negative (404) tests against REST API |
  
-**Total: 38 automated test cases**
+**38 test cases — 50+ executions including data-driven scenarios**
  
 ---
  
@@ -161,6 +161,11 @@ mvn clean test -Denv=staging
  
 # Run parallel suite
 mvn clean test -DsuiteXmlFile=testng-parallel.xml
+ 
+# Run specific group only
+mvn clean test -Dgroups=smoke
+mvn clean test -Dgroups=critical
+mvn clean test -Dgroups=regression
 ```
  
 ### Run with Docker
@@ -171,8 +176,11 @@ docker build -t tutorialsninja-automation .
 # Run tests (headless Chrome by default)
 docker run tutorialsninja-automation
  
-# Override browser or environment
-docker run -e BROWSER=firefox tutorialsninja-automation
+# Override browser
+docker run tutorialsninja-automation mvn test -Dheadless=true -Dbrowser=firefox
+ 
+# Override environment
+docker run tutorialsninja-automation mvn test -Dheadless=true -Denv=staging
 ```
  
 ### Run via Jenkins
@@ -180,7 +188,9 @@ docker run -e BROWSER=firefox tutorialsninja-automation
 2. Point it to this repository
 3. Jenkins will detect the `Jenkinsfile` automatically
 4. Use the `RUN_IN_DOCKER`, `BROWSER`, and `BASE_URL` parameters to configure the run
-5. Extent Reports and screenshots are archived as build artifacts after each run
+5. Click **Build with Parameters** to trigger the run
+6. Pipeline executes: Checkout → Docker build → 50+ tests headless → Archive reports
+7. Extent Reports and screenshots are archived as build artifacts after each run
 ---
  
 ## 📊 Reporting
