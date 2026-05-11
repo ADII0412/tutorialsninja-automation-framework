@@ -24,6 +24,14 @@ pipeline {
     }
 
     stages {
+        stage('Configure Jenkins') {
+            steps {
+                script {
+                    System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
+                }
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout scm
