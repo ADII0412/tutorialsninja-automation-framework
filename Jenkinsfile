@@ -43,22 +43,19 @@ pipeline {
 
                     if (params.RUN_IN_DOCKER) {
                         def tag = "tutorials-ninja-tests:${env.BUILD_NUMBER}"
+                        def workspacePath = env.WORKSPACE
+
                         if (isUnix()) {
-                            sh 'mkdir -p reports screenshots'
                             sh "docker build -t ${tag} ."
                             sh """
                             docker run --rm --entrypoint mvn \
-                              -v "${env.WORKSPACE}/reports:/app/reports" \
-                              -v "${env.WORKSPACE}/screenshots:/app/screenshots" \
-                              -v "${env.WORKSPACE}/target:/app/target" \
-                              -w /app ${tag} \
+                              --volumes-from jenkins \
+                              -w ${workspacePath} ${tag} \
                               test ${mvnArgs}
                             """.trim()
                         } else {
-                            bat 'if not exist reports mkdir reports'
-                            bat 'if not exist screenshots mkdir screenshots'
                             bat "docker build -t ${tag} ."
-                            bat "docker run --rm --entrypoint mvn -v \"${env.WORKSPACE}\\reports:/app/reports\" -v \"${env.WORKSPACE}\\screenshots:/app/screenshots\" -w /app ${tag} clean test ${mvnArgs}"
+                            bat "docker run --rm --entrypoint mvn --volumes-from jenkins -w ${workspacePath} ${tag} test ${mvnArgs}"
                         }
                     } else if (isUnix()) {
                         sh "mvn clean test ${mvnArgs}"
@@ -72,16 +69,17 @@ pipeline {
 
     post {
         always {
-            junit testResults: '**/surefire-reports/**/*.xml', allowEmptyResults: true
-            archiveArtifacts artifacts: 'reports/**,screenshots/**,target/surefire-reports/**/*', fingerprint: true, allowEmptyArchive: true
-            archiveArtifacts artifacts: 'screenshots/**', fingerprint: true, allowEmptyArchive: true
+            junit testResults: '**/surefire-reports/**/*.xml',
+                  allowEmptyResults: true
+            archiveArtifacts artifacts: 'reports/**,screenshots/**,target/surefire-reports/**/*',
+                  fingerprint: true,
+                  allowEmptyArchive: true
         }
-
         failure {
-                echo "Tests FAILED — check Extent Report in archived artifacts"
-            }
-            success {
-                echo "All tests PASSED"
-            }
+            echo "Tests FAILED — check Extent Report in archived artifacts"
+        }
+        success {
+            echo "All tests PASSED"
+        }
     }
 }
