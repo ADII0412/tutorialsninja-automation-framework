@@ -205,4 +205,4 @@ After each test run, an **Extent HTML report** is generated in the `reports/` di
 ## 📌 Author
  
 **Aditya Singh** — QA Automation Engineer
-[GitHub](https://github.com/ADII0412) | [LinkedIn](https://www.linkedin.com/in/adii0412/)
+[LinkedIn](https://www.linkedin.com/in/adii0412/)
